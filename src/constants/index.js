@@ -84,8 +84,8 @@ export const projects = [
     description:
       "An online store specializing in phone accessories including cases, chargers, cables, and power banks with MagSafe compatibility.",
     href: "",
-    image: "/public/assets/projects/mobile-accessories-store.jpg",
-    bgImage: "/public/assets/backgrounds/blanket.jpg",
+    image: "/assets/projects/mobile-accessories-store.jpg",
+    bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
       { id: 1, name: "React" },
       { id: 2, name: "Next.js" },
@@ -100,8 +100,8 @@ export const projects = [
     description:
       "An online store specializing in rare and decorative plants with a clean, user-friendly interface.",
     href: "",
-    image: "/public/assets/projects/plant-shop.jpg",
-    bgImage: "/public/assets/backgrounds/blanket.jpg",
+    image: "/assets/projects/plant-shop.jpg",
+    bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
       { id: 1, name: "React" },
       { id: 2, name: "Next.js" },
@@ -115,8 +115,8 @@ export const projects = [
     description:
       "An e-commerce platform for Apple products and accessories with deals and category filtering.",
     href: "",
-    image: "/public/assets/projects/apple-tech-store.jpg",
-    bgImage: "/public/assets/backgrounds/map.jpg",
+    image: "/assets/projects/apple-tech-store.jpg",
+    bgImage: "/assets/backgrounds/map.jpg",
     frameworks: [
       { id: 1, name: "Blazor" },
       { id: 2, name: "ASP.NET Core" },
@@ -130,8 +130,8 @@ export const projects = [
     description:
       "A multi-category online shop featuring electronics, home appliances, and gaming gear with special offers.",
     href: "",
-    image: "/public/assets/projects/electronics-store.jpg",
-    bgImage: "/public/assets/backgrounds/poster.jpg",
+    image: "/assets/projects/electronics-store.jpg",
+    bgImage: "/assets/backgrounds/poster.jpg",
     frameworks: [
       { id: 1, name: "Vue.js" },
       { id: 2, name: "Laravel" },
@@ -163,7 +163,7 @@ export const projects = [
     image: "/assets/projects/game-store.jpg",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
-      { id: 1, name: "Sidra" },
+      { id: 1, name: "React" },
       { id: 2, name: "Node.js" },
       { id: 3, name: "MongoDB" },
       { id: 4, name: "Chakra UI" },
