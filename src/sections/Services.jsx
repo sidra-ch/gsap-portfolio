@@ -50,7 +50,7 @@ const Services = () => {
         >
           <div className="flex items-center justify-between gap-4 font-light">
             <div className="flex flex-col gap-6">
-              <h2 className="text-3xl lg:text-4xl mb-[-10px]">{service.title}</h2>
+              <h2 className="text-3xl lg:text-4xl">{service.title}</h2>
               <p className="text-xl leading-relaxed tracking-widest lg:text-2xl text-white/60 text-pretty">
                 {service.description}
               </p>
