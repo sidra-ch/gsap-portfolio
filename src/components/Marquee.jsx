@@ -12,7 +12,7 @@ const Marquee = ({
 
   return (
     <div
-      className={`overflow-hidden w-full h-20 md:h-[100px] flex items-center marquee-text-responsive font-light uppercase whitespace-nowrap ${className}`}
+      className={`overflow-hidden w-full h-20 md:h-[100px] flex items-center marquee-text-responsive font-light whitespace-nowrap ${className}`}
     >
       <div
         className="flex w-max"
@@ -24,10 +24,14 @@ const Marquee = ({
         {loopItems.map((text, index) => (
           <span
             key={`${text}-${index}`}
-            className="flex shrink-0 items-center px-12 md:px-16 gap-x-10 md:gap-x-16"
+            className="flex shrink-0 items-center px-16 md:px-24 gap-x-12 md:gap-x-20"
           >
             {text}
-            {icon ? <Icon icon={icon} className={iconClassName} /> : null}
+            {icon ? (
+              <Icon icon={icon} className={iconClassName} />
+            ) : (
+              <span aria-hidden="true" className="text-gold/70 text-xl">•</span>
+            )}
           </span>
         ))}
       </div>
