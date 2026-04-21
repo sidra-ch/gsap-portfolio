@@ -85,6 +85,38 @@ const GlowHalo = () => {
   );
 };
 
+const AtmosphereShell = () => {
+  const ref = useRef();
+
+  useFrame((state) => {
+    if (!ref.current) return;
+    ref.current.rotation.y = state.clock.elapsedTime * 0.05;
+    ref.current.material.opacity = 0.12 + Math.sin(state.clock.elapsedTime * 1.2) * 0.02;
+  });
+
+  return (
+    <mesh ref={ref} scale={1.13}>
+      <sphereGeometry args={[1.02, 64, 64]} />
+      <meshStandardMaterial
+        color="#8ab6ff"
+        emissive="#7c3aed"
+        emissiveIntensity={0.45}
+        transparent
+        opacity={0.12}
+        side={THREE.BackSide}
+        depthWrite={false}
+      />
+    </mesh>
+  );
+};
+
+const GroundShadow = () => (
+  <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.72, 0]} scale={1.2}>
+    <circleGeometry args={[1.5, 64]} />
+    <meshBasicMaterial color="#201722" transparent opacity={0.22} />
+  </mesh>
+);
+
 // ─── Main Planet component ─────────────────────────────────────────────────
 export const Planet = React.memo(function Planet(props) {
   const groupRef      = useRef(null);   // slow rotation driver
@@ -121,6 +153,15 @@ export const Planet = React.memo(function Planet(props) {
           if (obj.isMesh) {
             obj.castShadow = true;
             obj.receiveShadow = true;
+            if (obj.material) {
+              obj.material = obj.material.clone();
+              if ("roughness" in obj.material) obj.material.roughness = 0.26;
+              if ("metalness" in obj.material) obj.material.metalness = 0.42;
+              if ("envMapIntensity" in obj.material) obj.material.envMapIntensity = 2.2;
+              if ("clearcoat" in obj.material) obj.material.clearcoat = 0.35;
+              if ("clearcoatRoughness" in obj.material) obj.material.clearcoatRoughness = 0.22;
+              obj.material.needsUpdate = true;
+            }
           }
         });
 
@@ -164,6 +205,7 @@ export const Planet = React.memo(function Planet(props) {
   return (
     <group ref={groupRef} {...props} dispose={null}>
       {/* decorative extras */}
+      <GroundShadow />
       <GlowRing />
       <GlowHalo />
       <FloatingParticles />
@@ -171,16 +213,22 @@ export const Planet = React.memo(function Planet(props) {
       {/* animated planet body */}
       <group ref={entryRef}>
         <group ref={spheresRef}>
+          <AtmosphereShell />
           {loadedScene ? (
             <primitive object={loadedScene} />
           ) : (
             <mesh castShadow receiveShadow rotation={[0, 0, 0.741]}>
               <sphereGeometry args={[1, 64, 64]} />
-              <meshStandardMaterial
-                color="#e8e8e8"
-                roughness={0.05}
-                metalness={0.12}
-                envMapIntensity={1.5}
+              <meshPhysicalMaterial
+                color="#dfe7f5"
+                roughness={0.18}
+                metalness={0.38}
+                clearcoat={0.45}
+                clearcoatRoughness={0.18}
+                reflectivity={1}
+                envMapIntensity={2.4}
+                sheen={0.25}
+                sheenColor="#cfd8ff"
               />
             </mesh>
           )}

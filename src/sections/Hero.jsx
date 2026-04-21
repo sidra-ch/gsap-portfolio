@@ -116,9 +116,14 @@ const Hero = () => {
       .from(ctaRef.current?.children || [], { y: 20, opacity: 0, duration: 0.6, stagger: 0.1 }, 1.05)
       .from(Array.from(socialRef.current?.children ?? []), { x: -15, opacity: 0, duration: 0.5, stagger: 0.07 }, 0.5);
     if (planetRef.current) {
+      gsap.fromTo(
+        planetRef.current,
+        { x: isMobile ? -120 : -180, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1.7, ease: "power3.out", delay: 0.15 }
+      );
       gsap.to(planetRef.current, { y: 18, duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
     }
-  }, []);
+  }, [isMobile]);
 
   const SOCIALS = [
     { icon: <LinkedInIcon />, href: "https://linkedin.com/in/sidra-chaudhary", label: "LinkedIn" },
@@ -142,64 +147,28 @@ const Hero = () => {
         <div className="w-px h-10 mt-1" style={{ background: "linear-gradient(to bottom, rgba(207,163,85,0.3), transparent)" }} />
       </div>
 
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 min-h-screen">
-        <div className="flex flex-col justify-center px-8 sm:px-12 lg:pl-28 xl:pl-32 lg:pr-6 pt-28 pb-16 lg:pt-0 lg:pb-0">
-          <p ref={taglineRef} className={`text-[10px] sm:text-xs tracking-[0.45em] uppercase mb-8 font-light ${isDark ? "text-white/30" : "text-black/40"}`}>
-            Crafting Digital Excellence
-          </p>
-          <div ref={nameRef} className="mb-5">
-            <span className={`block font-black leading-[0.92] ${isDark ? "text-white" : "text-black"}`} style={{ fontSize: "clamp(58px, 9.5vw, 118px)" }}>CH.</span>
-            <span className="block font-black text-gold leading-[0.92]" style={{ fontSize: "clamp(58px, 9.5vw, 118px)" }}>SIDRA</span>
-          </div>
-          <div ref={roleRef} className="flex items-center gap-3 mb-4">
-            <span className={`text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase ${isDark ? "text-white" : "text-black/80"}`}>Cloud Architect</span>
-            <span className="text-gold text-base opacity-80">|</span>
-            <span className={`text-[11px] sm:text-xs font-light tracking-[0.22em] uppercase ${isDark ? "text-white/50" : "text-black/50"}`}>Full Stack Developer</span>
-          </div>
-          <div ref={aiRef} className="flex items-center gap-2.5 mb-8">
-            <span className="text-[9px] tracking-[0.28em] uppercase px-2 py-[3px] font-medium rounded-sm" style={{ color: "#cfa355", border: "1px solid rgba(207,163,85,0.25)", background: "rgba(207,163,85,0.06)" }}>AI</span>
-            <span className={`text-sm font-light tracking-wide min-w-[160px] ${isDark ? "text-white/45" : "text-black/55"}`}>{typedRole}</span>
-            <span className="text-gold animate-pulse font-thin text-lg leading-none">|</span>
-          </div>
-          <p ref={descRef} className={`text-sm sm:text-[15px] leading-relaxed max-w-[420px] mb-10 font-light ${isDark ? "text-white/40" : "text-black/60"}`}>
-            I design and build digital experiences that drive measurable results for growing businesses.
-          </p>
-          <div ref={ctaRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-10 lg:mb-0">
-            <a href="#work" className={`flex items-center gap-3 pl-6 pr-2 py-2 rounded-full text-sm font-light tracking-[0.07em] transition-all duration-300 ${isDark ? "text-white" : "text-black"}`} style={{ border: isDark ? "1.5px solid rgba(255,255,255,0.16)" : "1.5px solid rgba(0,0,0,0.2)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(207,163,85,0.5)"; e.currentTarget.style.boxShadow = "0 0 20px rgba(207,163,85,0.12)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = isDark ? "rgba(255,255,255,0.16)" : "rgba(0,0,0,0.2)"; e.currentTarget.style.boxShadow = "none"; }}>
-              <span>View My Work</span>
-              <span className="w-9 h-9 rounded-full flex items-center justify-center bg-gold">
-                <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-              </span>
-            </a>
-            <a href="/sidra-cv.html" target="_blank" rel="noreferrer" className={`flex items-center gap-2 text-sm font-light tracking-[0.07em] transition-colors duration-300 ${isDark ? "text-white/40 hover:text-white/80" : "text-black/50 hover:text-black/80"}`}>
-              <span>Download CV</span>
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
-            </a>
-          </div>
-          <div className="flex lg:hidden items-center gap-6">
-            {SOCIALS.map(({ icon, href, label }) => (
-              <a key={label} href={href} target="_blank" rel="noreferrer" className={`${isDark ? "text-white/35" : "text-black/50"} hover:text-gold transition-colors duration-300`}>{icon}</a>
-            ))}
-          </div>
-        </div>
-
-        <div ref={planetRef} className="relative w-full h-[65vh] min-h-[380px] lg:h-full lg:min-h-screen flex items-center justify-center">
+      <div className="relative min-h-screen">
+        <div
+          ref={planetRef}
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{ opacity: isDark ? 0.96 : 0.9 }}
+        >
           {webglSupported && (
-            <Canvas shadows dpr={[1, 2]} gl={{ antialias: true, alpha: true }} camera={{ position: [0, 0.8, 8], fov: 40, near: 0.1, far: 200 }}>
+            <Canvas shadows dpr={[1, 2]} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} camera={{ position: [0, 0.7, 7.2], fov: 36, near: 0.1, far: 200 }}>
               <Suspense fallback={null}>
                 <Stars radius={120} depth={80} count={1400} factor={3} saturation={0} fade speed={0.15} />
-                <ambientLight intensity={0.25} />
-                <directionalLight position={[5, 10, 7]} intensity={1.8} castShadow />
-                <pointLight position={[-5, 5, 3]} intensity={8} color="#cfa355" />
-                <pointLight position={[5, -3, 4]} intensity={4} color="#e8c97a" />
-                <pointLight position={[0, 6, -6]} intensity={2} color="#ffffff" />
+                <ambientLight intensity={0.45} />
+                <hemisphereLight intensity={0.85} groundColor="#1f1820" color="#f7f2e8" />
+                <directionalLight position={[6, 8, 7]} intensity={2.6} castShadow color="#fff6dd" />
+                <spotLight position={[-6, 4, 8]} angle={0.38} penumbra={1} intensity={80} color="#d7a64f" />
+                <pointLight position={[-5, 5, 3]} intensity={10} color="#cfa355" />
+                <pointLight position={[5, -3, 4]} intensity={5.5} color="#e8c97a" />
+                <pointLight position={[0, 6, -6]} intensity={3.5} color="#ffffff" />
                 <Float speed={0.45} rotationIntensity={0.05} floatIntensity={1.2}>
-                  <Planet position={isMobile ? [0, 0, 0] : [0.4, -0.2, 0]} scale={isMobile ? 1.3 : 1.7} />
-                </Float>
-                <Float speed={0.75} rotationIntensity={0.45} floatIntensity={0.9}>
-                  <Planet position={isMobile ? [1.4, 1.5, -0.5] : [3.2, 2.4, -1]} scale={isMobile ? 0.22 : 0.35} />
+                  <Planet
+                    position={isMobile ? [-0.95, -0.35, 0] : [-1.65, -0.15, 0]}
+                    scale={isMobile ? 1.85 : 2.4}
+                  />
                 </Float>
                 <Environment resolution={256} blur={0.8}>
                   <group rotation={[-Math.PI / 3, 4, 1]}>
@@ -212,9 +181,55 @@ const Hero = () => {
             </Canvas>
           )}
         </div>
+
+        <div className="relative z-20 flex min-h-screen items-center px-8 pt-28 pb-16 sm:px-12 lg:px-16 lg:pt-0 lg:pb-0 xl:px-24">
+          <div className="flex w-full justify-start lg:justify-end">
+            <div className="w-full max-w-[560px] lg:mr-[10vw] xl:mr-[12vw]">
+              <p ref={taglineRef} className={`text-[10px] sm:text-xs tracking-[0.45em] uppercase mb-8 font-light ${isDark ? "text-white/30" : "text-black/40"}`}>
+                Crafting Digital Excellence
+              </p>
+              <div ref={nameRef} className="mb-5">
+                <span className={`block font-black leading-[0.92] ${isDark ? "text-white" : "text-black"}`} style={{ fontSize: "clamp(58px, 9.5vw, 118px)" }}>CH.</span>
+                <span className="block font-black text-gold leading-[0.92]" style={{ fontSize: "clamp(58px, 9.5vw, 118px)" }}>SIDRA</span>
+              </div>
+              <div ref={roleRef} className="flex items-center gap-3 mb-4">
+                <span className={`text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase ${isDark ? "text-white" : "text-black/80"}`}>Cloud Architect</span>
+                <span className="text-gold text-base opacity-80">|</span>
+                <span className={`text-[11px] sm:text-xs font-light tracking-[0.22em] uppercase ${isDark ? "text-white/50" : "text-black/50"}`}>Full Stack Developer</span>
+              </div>
+              <div ref={aiRef} className="flex items-center gap-2.5 mb-8">
+                <span className="text-[9px] tracking-[0.28em] uppercase px-2 py-[3px] font-medium rounded-sm" style={{ color: "#cfa355", border: "1px solid rgba(207,163,85,0.25)", background: "rgba(207,163,85,0.06)" }}>AI</span>
+                <span className={`text-sm font-light tracking-wide min-w-[160px] ${isDark ? "text-white/45" : "text-black/55"}`}>{typedRole}</span>
+                <span className="text-gold animate-pulse font-thin text-lg leading-none">|</span>
+              </div>
+              <p ref={descRef} className={`text-sm sm:text-[15px] leading-relaxed max-w-[420px] mb-10 font-light ${isDark ? "text-white/40" : "text-black/60"}`}>
+                I design and build digital experiences that drive measurable results for growing businesses.
+              </p>
+              <div ref={ctaRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-10 lg:mb-0">
+                <a href="#work" className={`flex items-center gap-3 pl-6 pr-2 py-2 rounded-full text-sm font-light tracking-[0.07em] transition-all duration-300 ${isDark ? "text-white" : "text-black"}`} style={{ border: isDark ? "1.5px solid rgba(255,255,255,0.16)" : "1.5px solid rgba(0,0,0,0.2)" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(207,163,85,0.5)"; e.currentTarget.style.boxShadow = "0 0 20px rgba(207,163,85,0.12)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = isDark ? "rgba(255,255,255,0.16)" : "rgba(0,0,0,0.2)"; e.currentTarget.style.boxShadow = "none"; }}>
+                  <span>View My Work</span>
+                  <span className="w-9 h-9 rounded-full flex items-center justify-center bg-gold">
+                    <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  </span>
+                </a>
+                <a href="/sidra-cv.html" target="_blank" rel="noreferrer" className={`flex items-center gap-2 text-sm font-light tracking-[0.07em] transition-colors duration-300 ${isDark ? "text-white/40 hover:text-white/80" : "text-black/50 hover:text-black/80"}`}>
+                  <span>Download CV</span>
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                </a>
+              </div>
+              <div className="flex lg:hidden items-center gap-6">
+                {SOCIALS.map(({ icon, href, label }) => (
+                  <a key={label} href={href} target="_blank" rel="noreferrer" className={`${isDark ? "text-white/35" : "text-black/50"} hover:text-gold transition-colors duration-300`}>{icon}</a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-10">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-20">
         <div className="w-6 h-10 rounded-full flex items-start justify-center pt-2" style={{ border: isDark ? "1.5px solid rgba(255,255,255,0.12)" : "1.5px solid rgba(0,0,0,0.2)" }}>
           <div className="w-1 h-2 rounded-full animate-bounce" style={{ background: "rgba(207,163,85,0.5)" }} />
         </div>
