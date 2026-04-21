@@ -13,11 +13,11 @@ const ContactSummary = () => {
     "Excellence",
   ];
   const items2 = [
-    "contact us",
-    "contact us",
-    "contact us",
-    "contact us",
-    "contact us",
+    "Let\'s discuss your next project",
+    "Email: ms.sidrachaudhary@gmail.com",
+    "GitHub: github.com/sidra-ch",
+    "LinkedIn: linkedin.com/in/sidra-chaudhary",
+    "Available for freelance and full-time opportunities",
   ];
 
   useGSAP(() => {
@@ -51,8 +51,7 @@ const ContactSummary = () => {
         items={items2}
         reverse={true}
         className="text-black dark:text-white bg-transparent border-y-2 dark:border-white/20"
-        iconClassName="stroke-gold stroke-2 text-primary"
-        icon="material-symbols-light:square"
+        icon={null}
       />
     </section>
   );

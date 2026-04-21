@@ -21,6 +21,15 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 body {
   background: #e5e5e0;
   color: black;
