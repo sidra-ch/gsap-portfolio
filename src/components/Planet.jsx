@@ -1,9 +1,9 @@
-import React, { useRef, useMemo } from "react";
-import { useGLTF } from "@react-three/drei";
+import React, { useRef, useMemo, useEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // ─── Floating indigo particles ────────────────────────────────────────────
 const FloatingParticles = () => {
@@ -91,40 +91,52 @@ export const Planet = React.memo(function Planet(props) {
   const entryRef      = useRef(null);   // GSAP entry (position y)
   const spheresRef    = useRef(null);
   const ringRef       = useRef(null);
+  const [loadedScene, setLoadedScene] = useState(null);
 
-  const { nodes, materials, scene } = useGLTF("/models/Planet.glb");
-  const memoNodes     = useMemo(() => nodes,     [nodes]);
-  const memoMaterials = useMemo(() => materials, [materials]);
-  const memoScene = useMemo(() => {
-    if (!scene) return null;
+  useEffect(() => {
+    let active = true;
+    const loader = new GLTFLoader();
 
-    const cloned = scene.clone(true);
+    loader.load(
+      "/models/Planet.glb",
+      (gltf) => {
+        if (!active || !gltf?.scene) return;
 
-    // Make fallback scene camera-friendly: centered at origin and uniformly scaled.
-    const box = new THREE.Box3().setFromObject(cloned);
-    const size = new THREE.Vector3();
-    const center = new THREE.Vector3();
-    box.getSize(size);
-    box.getCenter(center);
+        const cloned = gltf.scene.clone(true);
+        const box = new THREE.Box3().setFromObject(cloned);
+        const size = new THREE.Vector3();
+        const center = new THREE.Vector3();
+        box.getSize(size);
+        box.getCenter(center);
 
-    if (Number.isFinite(size.length()) && size.length() > 0) {
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const targetSize = 2.8;
-      const s = targetSize / maxDim;
-      cloned.scale.setScalar(s);
-      cloned.position.sub(center.multiplyScalar(s));
-    }
+        if (Number.isFinite(size.length()) && size.length() > 0) {
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const targetSize = 2.8;
+          const s = targetSize / maxDim;
+          cloned.scale.setScalar(s);
+          cloned.position.sub(center.multiplyScalar(s));
+        }
 
-    cloned.traverse((obj) => {
-      if (obj.isMesh) {
-        obj.castShadow = true;
-        obj.receiveShadow = true;
+        cloned.traverse((obj) => {
+          if (obj.isMesh) {
+            obj.castShadow = true;
+            obj.receiveShadow = true;
+          }
+        });
+
+        setLoadedScene(cloned);
+      },
+      undefined,
+      () => {
+        // Keep fallback mesh visible if GLB fails to load on client.
+        setLoadedScene(null);
       }
-    });
+    );
 
-    return cloned;
-  }, [scene]);
-  const hasNamedMeshes = Boolean(memoNodes?.Sphere?.geometry || memoNodes?.Ring?.geometry);
+    return () => {
+      active = false;
+    };
+  }, []);
 
   // Continuous rotation — only on the inner group so props position is not affected
   useFrame((state) => {
@@ -158,78 +170,41 @@ export const Planet = React.memo(function Planet(props) {
 
       {/* animated planet body */}
       <group ref={entryRef}>
-        {hasNamedMeshes ? (
-          <>
-            <group ref={spheresRef}>
-              {memoNodes?.Sphere?.geometry && memoMaterials?.["Material.002"] ? (
-                <mesh
-                  castShadow
-                  receiveShadow
-                  geometry={memoNodes.Sphere.geometry}
-                  material={memoMaterials["Material.002"]}
-                  rotation={[0, 0, 0.741]}
-                />
-              ) : (
-                <mesh castShadow receiveShadow rotation={[0, 0, 0.741]}>
-                  <sphereGeometry args={[1, 64, 64]} />
-                  <meshStandardMaterial
-                    color="#e8e8e8"
-                    roughness={0.05}
-                    metalness={0.12}
-                    envMapIntensity={1.5}
-                  />
-                </mesh>
-              )}
-              {memoNodes?.Sphere2?.geometry && memoMaterials?.["Material.001"] && (
-                <mesh
-                  castShadow
-                  receiveShadow
-                  geometry={memoNodes.Sphere2.geometry}
-                  material={memoMaterials["Material.001"]}
-                  position={[0.647, 1.03, -0.724]}
-                  rotation={[0, 0, 0.741]}
-                  scale={0.223}
-                />
-              )}
-            </group>
-
-            {memoNodes?.Ring?.geometry && memoMaterials?.["Material.001"] ? (
-              <mesh
-                ref={ringRef}
-                castShadow
-                receiveShadow
-                geometry={memoNodes.Ring.geometry}
-                material={memoMaterials["Material.001"]}
-                rotation={[-0.124, 0.123, -0.778]}
-                scale={2}
+        <group ref={spheresRef}>
+          {loadedScene ? (
+            <primitive object={loadedScene} />
+          ) : (
+            <mesh castShadow receiveShadow rotation={[0, 0, 0.741]}>
+              <sphereGeometry args={[1, 64, 64]} />
+              <meshStandardMaterial
+                color="#e8e8e8"
+                roughness={0.05}
+                metalness={0.12}
+                envMapIntensity={1.5}
               />
-            ) : (
-              <mesh
-                ref={ringRef}
-                castShadow
-                receiveShadow
-                rotation={[-0.124, 0.123, -0.778]}
-                scale={2}
-              >
-                <torusGeometry args={[1.6, 0.12, 16, 100]} />
-                <meshStandardMaterial
-                  color="#6366f1"
-                  emissive="#7c3aed"
-                  emissiveIntensity={0.65}
-                  metalness={1}
-                  roughness={0.05}
-                />
-              </mesh>
-            )}
-          </>
-        ) : (
-          // Fallback: render the full GLB scene when node names differ from expected ones.
-          memoScene && <primitive object={memoScene} />
-        )}
+            </mesh>
+          )}
+        </group>
+
+        <mesh
+          ref={ringRef}
+          castShadow
+          receiveShadow
+          rotation={[-0.124, 0.123, -0.778]}
+          scale={2}
+        >
+          <torusGeometry args={[1.6, 0.12, 16, 100]} />
+          <meshStandardMaterial
+            color="#6366f1"
+            emissive="#7c3aed"
+            emissiveIntensity={0.65}
+            metalness={1}
+            roughness={0.05}
+          />
+        </mesh>
       </group>
     </group>
   );
 });
 
 Planet.displayName = "Planet";
-useGLTF.preload("/models/Planet.glb");
