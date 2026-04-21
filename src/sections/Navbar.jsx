@@ -3,6 +3,7 @@ import { socials } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Link } from "react-scroll";
+import { useTheme } from "../components/ThemeProvider";
 
 const NAV_LINKS = [
   { label: "Home", to: "home" },
@@ -22,6 +23,7 @@ const MENU_LINKS = [
 ];
 
 const Navbar = () => {
+  const { isDark } = useTheme();
   const navRef = useRef(null);
   const contactRef = useRef(null);
   const linksRef = useRef([]);
@@ -68,14 +70,14 @@ const Navbar = () => {
       <header
         className="fixed top-0 left-0 right-0 z-[55] flex items-center justify-between px-8 sm:px-10 h-16 sm:h-20 transition-all duration-500"
         style={{
-          background: scrolled ? "rgba(8,8,8,0.92)" : "transparent",
+          background: scrolled ? (isDark ? "rgba(8,8,8,0.92)" : "rgba(229,229,224,0.9)") : "transparent",
           backdropFilter: scrolled ? "blur(16px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "none",
+          borderBottom: scrolled ? (isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid rgba(0,0,0,0.08)") : "none",
         }}
       >
         <Link to="home" smooth duration={1500} className="cursor-pointer select-none">
           <div className="font-black leading-none">
-            <div className="text-xl sm:text-2xl text-white tracking-tight">CH.</div>
+            <div className={`text-xl sm:text-2xl tracking-tight ${isDark ? "text-white" : "text-black"}`}>CH.</div>
             <div className="text-xl sm:text-2xl tracking-tight text-gold">SIDRA</div>
           </div>
         </Link>
@@ -90,7 +92,7 @@ const Navbar = () => {
               spy
               activeClass="!text-gold"
               offset={-80}
-              className="relative text-[11px] tracking-[0.12em] uppercase text-white/50 hover:text-white cursor-pointer transition-colors duration-300"
+              className={`relative text-[11px] tracking-[0.12em] uppercase cursor-pointer transition-colors duration-300 ${isDark ? "text-white/50 hover:text-white" : "text-black/50 hover:text-black"}`}
             >
               {label}
             </Link>
@@ -99,22 +101,22 @@ const Navbar = () => {
 
         <button
           onClick={toggleMenu}
-          className="w-11 h-11 flex flex-col items-center justify-center gap-[5px] rounded-full border border-white/15 bg-black/60 cursor-pointer hover:border-gold/30 transition-all duration-300"
+          className={`w-11 h-11 flex flex-col items-center justify-center gap-[5px] rounded-full cursor-pointer hover:border-gold/30 transition-all duration-300 ${isDark ? "border border-white/15 bg-black/60" : "border border-black/20 bg-white/60"}`}
         >
-          <span ref={topLineRef} className="block w-[18px] h-[1.5px] bg-white rounded-full origin-center" />
-          <span ref={bottomLineRef} className="block w-[18px] h-[1.5px] bg-white rounded-full origin-center" />
+          <span ref={topLineRef} className={`block w-[18px] h-[1.5px] rounded-full origin-center ${isDark ? "bg-white" : "bg-black"}`} />
+          <span ref={bottomLineRef} className={`block w-[18px] h-[1.5px] rounded-full origin-center ${isDark ? "bg-white" : "bg-black"}`} />
         </button>
       </header>
 
       <nav
         ref={navRef}
-        className="fixed z-50 flex flex-col justify-between w-full h-full px-10 bg-[#0a0a0a] border-l border-white/5 py-28 gap-y-10 md:w-1/2 md:left-1/2"
+        className={`fixed z-50 flex flex-col justify-between w-full h-full px-10 py-28 gap-y-10 md:w-1/2 md:left-1/2 ${isDark ? "bg-[#0a0a0a] border-l border-white/5" : "bg-[#f6f4ee] border-l border-black/10"}`}
       >
         <div className="flex flex-col gap-y-1 font-black uppercase">
           {MENU_LINKS.map((section, index) => (
             <div key={index} ref={(el) => (linksRef.current[index] = el)}>
               <Link
-                className="text-4xl sm:text-5xl lg:text-6xl transition-all duration-300 cursor-pointer hover:text-gold hover:translate-x-3 text-white/80 inline-block"
+                className={`text-4xl sm:text-5xl lg:text-6xl transition-all duration-300 cursor-pointer hover:text-gold hover:translate-x-3 inline-block ${isDark ? "text-white/80" : "text-black/80"}`}
                 to={section.to}
                 smooth
                 offset={-80}
@@ -129,11 +131,11 @@ const Navbar = () => {
 
         <div ref={contactRef} className="flex flex-col flex-wrap justify-between gap-6 md:flex-row">
           <div className="font-light">
-            <p className="tracking-[0.3em] text-white/30 text-[10px] uppercase mb-1">E-mail</p>
+            <p className={`tracking-[0.3em] text-[10px] uppercase mb-1 ${isDark ? "text-white/30" : "text-black/40"}`}>E-mail</p>
             <p className="text-sm tracking-widest lowercase text-gold/80">ms.sidrachaudhary@gmail.com</p>
           </div>
           <div className="font-light">
-            <p className="tracking-[0.3em] text-white/30 text-[10px] uppercase mb-1">Social</p>
+            <p className={`tracking-[0.3em] text-[10px] uppercase mb-1 ${isDark ? "text-white/30" : "text-black/40"}`}>Social</p>
             <div className="flex flex-wrap gap-x-3">
               {socials.map((social, index) => (
                 <a
@@ -141,7 +143,7 @@ const Navbar = () => {
                   href={social.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-xs leading-loose tracking-widest uppercase text-white/50 hover:text-gold transition-colors duration-300"
+                  className={`text-xs leading-loose tracking-widest uppercase hover:text-gold transition-colors duration-300 ${isDark ? "text-white/50" : "text-black/50"}`}
                 >
                   {"{ "}{social.name}{" }"}
                 </a>

@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sidra Chaudhary — CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #060c17;
+      --surface:   #0d1526;
+      --surface2:  #111d33;
+      --border:    rgba(255,255,255,0.07);
+      --text:      #e8edf5;
+      --muted:     #7a8fad;
+      --dim:       #3d5068;
+      --accent:    #4f8ef7;
+      --accent2:   #a78bfa;
+      --green:     #34d399;
+      --grad:      linear-gradient(135deg, #4f8ef7 0%, #a78bfa 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      padding: 40px 20px 60px;
+      min-height: 100vh;
+    }
+
+    /* ── Outer wrapper ── */
+    .cv {
+      max-width: 960px;
+      margin: 0 auto;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 40px 120px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.03) inset;
+      background: var(--surface);
+    }
+
+    /* ── Hero Header ── */
+    .hero {
+      position: relative;
+      padding: 48px 52px 40px;
+      background: linear-gradient(135deg, #0d1a35 0%, #0b1220 60%, #10112a 100%);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 90% 10%, rgba(79,142,247,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 80% at 5% 100%, rgba(167,139,250,0.08) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; z-index: 1; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(79,142,247,0.3);
+      background: rgba(79,142,247,0.08);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.4; }
+    }
+
+    .name {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      margin-top: 10px;
+      font-size: 15px;
+      color: var(--muted);
+      font-weight: 400;
+      max-width: 520px;
+    }
+
+    .contact-row {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .contact-pill:hover {
+      border-color: rgba(79,142,247,0.4);
+      color: var(--accent);
+      background: rgba(79,142,247,0.06);
+    }
+
+    .contact-pill svg { flex-shrink: 0; }
+
+    /* ── Body layout ── */
+    .body {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+    }
+
+    .main-col {
+      padding: 40px 44px;
+      border-right: 1px solid var(--border);
+    }
+
+    .side-col {
+      padding: 40px 28px;
+    }
+
+    /* ── Section headings ── */
+    .sec-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 22px;
+    }
+
+    .sec-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Summary ── */
+    .summary-text {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+
+    /* ── Timeline (Experience) ── */
+    .timeline { margin-bottom: 36px; }
+
+    .tl-item {
+      position: relative;
+      padding-left: 22px;
+      padding-bottom: 28px;
+    }
+
+    .tl-item:last-child { padding-bottom: 0; }
+
+    .tl-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(79,142,247,0.6);
+      z-index: 1;
+    }
+
+    .tl-item::after {
+      content: "";
+      position: absolute;
+      left: 3.5px;
+      top: 15px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, rgba(79,142,247,0.4) 0%, transparent 100%);
+    }
+
+    .tl-item:last-child::after { display: none; }
+
+    .tl-role {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .tl-company {
+      display: inline-block;
+      margin-top: 2px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent2);
+      letter-spacing: 0.04em;
+    }
+
+    .tl-date {
+      font-size: 12px;
+      color: var(--dim);
+      margin: 5px 0 8px;
+    }
+
+    .tl-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── Projects ── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .project-card {
+      padding: 16px;
+      border-radius: 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: rgba(79,142,247,0.3);
+      transform: translateY(-2px);
+    }
+
+    .project-card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .project-card p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .tag-row {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(79,142,247,0.1);
+      border: 1px solid rgba(79,142,247,0.2);
+      color: var(--accent);
+    }
+
+    /* ── Side: Skills ── */
+    .skill-group { margin-bottom: 26px; }
+
+    .skill-group-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 10px;
+    }
+
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-chip {
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── Side: Education / Extras ── */
+    .info-block { margin-bottom: 26px; }
+
+    .info-block h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .info-block p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── Accent bar at top ── */
+    .accent-bar {
+      height: 3px;
+      background: var(--grad);
+    }
+
+    /* ── Print ── */
+    @media print {
+      body { background: #fff; color: #111; padding: 0; }
+      .cv { border: none; border-radius: 0; box-shadow: none; }
+      .hero { background: #f8f9fc; }
+      .name { -webkit-text-fill-color: #1e3a8a; }
+      .contact-pill { color: #374151; }
+      .body { grid-template-columns: 1fr 260px; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      .body { grid-template-columns: 1fr; }
+      .main-col { border-right: none; border-bottom: 1px solid var(--border); padding: 28px 24px; }
+      .side-col { padding: 28px 24px; }
+      .hero { padding: 32px 24px 28px; }
+      .project-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cv">
+    <div class="accent-bar"></div>
+
+    <!-- ── HEADER ── -->
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Available for opportunities
+        </div>
+        <h1 class="name">Sidra Chaudhary</h1>
+        <p class="tagline">Full Stack Developer · AI Engineer · Cybersecurity Specialist — building high-performance, secure, and intelligent web systems.</p>
+        <div class="contact-row">
+          <a class="contact-pill" href="mailto:ms.sidrachaudhary@gmail.com">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            ms.sidrachaudhary@gmail.com
+          </a>
+          <a class="contact-pill" href="https://github.com/sidra-ch" target="_blank" rel="noreferrer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            github.com/sidra-ch
+          </a>
+          <a class="contact-pill" href="https://linkedin.com/in/sidra-chaudhary" target="_blank" rel="noreferrer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            linkedin.com/in/sidra-chaudhary
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── BODY ── -->
+    <div class="body">
+
+      <!-- LEFT / MAIN -->
+      <div class="main-col">
+
+        <!-- Summary -->
+        <h2 class="sec-title">Profile</h2>
+        <p class="summary-text">
+          Versatile engineer with hands-on experience delivering scalable SaaS platforms, AI-powered
+          automation pipelines, and secure full-stack applications. Proficient across the entire
+          product lifecycle — from system design and backend architecture to polished front-end
+          experiences and robust security operations.
+        </p>
+
+        <!-- Experience -->
+        <h2 class="sec-title">Experience</h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-role">AI Engineer</div>
+            <span class="tl-company">Remote · Contract</span>
+            <div class="tl-date">2025 — Present</div>
+            <p class="tl-desc">Designing and deploying AI automation workflows, integrating LLM APIs into production backends, and optimizing inference pipelines for high-throughput, low-latency performance.</p>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-role">Full Stack Developer</div>
+            <span class="tl-company">PNY Group</span>
+            <div class="tl-date">2024 — 2025</div>
+            <p class="tl-desc">Architected and shipped MERN & PostgreSQL applications featuring JWT-secured REST APIs, role-based access control, Stripe payment flows, and real-time Socket.IO communications.</p>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-role">Cybersecurity Engineer</div>
+            <span class="tl-company">Advanced Security Operations</span>
+            <div class="tl-date">2023 — Present</div>
+            <p class="tl-desc">Conducting end-to-end threat modeling, vulnerability assessments, and penetration testing. Enforcing secure architecture hardening, OWASP compliance, and proactive incident response readiness across distributed systems.</p>
+          </div>
+        </div>
+
+        <!-- Projects -->
+        <h2 class="sec-title">Projects</h2>
+        <div class="project-grid">
+          <div class="project-card">
+            <h3>E-Commerce Platform</h3>
+            <p>Full-featured store with product management, cart, Stripe checkout, and Cloudinary media.</p>
+            <div class="tag-row">
+              <span class="tag">Next.js</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Stripe</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <h3>Social Media App</h3>
+            <p>Real-time social platform with feeds, follows, likes, and Socket.IO live chat.</p>
+            <div class="tag-row">
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">Socket.IO</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <h3>Sapphura E-Commerce</h3>
+            <p>End-to-end order & inventory management with admin dashboard and analytics.</p>
+            <div class="tag-row">
+              <span class="tag">MERN</span>
+              <span class="tag">MongoDB</span>
+              <span class="tag">JWT</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <h3>AI Automation Suite</h3>
+            <p>Workflow automation using LLM integrations, prompt engineering, and webhook pipelines.</p>
+            <div class="tag-row">
+              <span class="tag">OpenAI</span>
+              <span class="tag">Python</span>
+              <span class="tag">REST</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT / SIDE -->
+      <div class="side-col">
+
+        <!-- Skills -->
+        <h2 class="sec-title">Skills</h2>
+
+        <div class="skill-group">
+          <p class="skill-group-label">Frontend</p>
+          <div class="skill-chips">
+            <span class="skill-chip">React</span>
+            <span class="skill-chip">Next.js</span>
+            <span class="skill-chip">Tailwind CSS</span>
+            <span class="skill-chip">GSAP</span>
+            <span class="skill-chip">TypeScript</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-label">Backend</p>
+          <div class="skill-chips">
+            <span class="skill-chip">Node.js</span>
+            <span class="skill-chip">Express</span>
+            <span class="skill-chip">REST APIs</span>
+            <span class="skill-chip">Socket.IO</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-label">Database &amp; Cloud</p>
+          <div class="skill-chips">
+            <span class="skill-chip">PostgreSQL</span>
+            <span class="skill-chip">MongoDB</span>
+            <span class="skill-chip">Firebase</span>
+            <span class="skill-chip">Vercel</span>
+            <span class="skill-chip">Cloudinary</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-label">Security</p>
+          <div class="skill-chips">
+            <span class="skill-chip">OWASP</span>
+            <span class="skill-chip">JWT / OAuth</span>
+            <span class="skill-chip">Threat Modeling</span>
+            <span class="skill-chip">Pen Testing</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-label">AI / ML</p>
+          <div class="skill-chips">
+            <span class="skill-chip">Prompt Engineering</span>
+            <span class="skill-chip">LLM Integration</span>
+            <span class="skill-chip">Automation</span>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div style="height:1px;background:var(--border);margin:28px 0;"></div>
+
+        <!-- Education -->
+        <h2 class="sec-title">Education</h2>
+
+          <div class="info-block">
+          <h4>Bachelor of Science — Computer Science</h4>
+        
+         
+        </div>
+        <div class="info-block">
+          <h4>Full Stack Web Development</h4>
+          <p>Modern Web Technologies &amp; SaaS Architecture</p>
+          <p style="margin-top:3px;color:var(--dim);font-size:11px;">2023</p>
+        </div>
+
+        <div class="info-block">
+          <h4>Diploma in Cybersecurity</h4>
+          <p>Advanced Security &amp; Ethical Hacking</p>
+          <p style="margin-top:3px;color:var(--dim);font-size:11px;">2025</p>
+        </div>
+      
+
+        <div style="height:1px;background:var(--border);margin:28px 0;"></div>
+
+        <!-- Languages -->
+        <h2 class="sec-title">Languages</h2>
+        <div class="skill-chips">
+          <span class="skill-chip">English — Fluent</span>
+          <span class="skill-chip">Urdu — Native</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

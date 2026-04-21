@@ -5,6 +5,7 @@ import { useMediaQuery } from "react-responsive";
 import { useRef, useEffect, useState, Suspense } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useTheme } from "../components/ThemeProvider";
 
 const LinkedInIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-[15px] h-[15px]">
@@ -22,7 +23,7 @@ const EmailIcon = () => (
   </svg>
 );
 
-const AIBackground = () => {
+const AIBackground = ({ isDark }) => {
   const canvasRef = useRef(null);
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -65,7 +66,7 @@ const AIBackground = () => {
     window.addEventListener("resize", resize);
     return () => { cancelAnimationFrame(rafId); window.removeEventListener("resize", resize); };
   }, []);
-  return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0 opacity-50" />;
+  return <canvas ref={canvasRef} className={`absolute inset-0 pointer-events-none z-0 ${isDark ? "opacity-50" : "opacity-25"}`} />;
 };
 
 const ROLES = ["Cloud Architect", "Full Stack Developer", "AI Engineer", "UI/UX Designer"];
@@ -90,6 +91,7 @@ const useTyping = () => {
 
 const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
+  const { isDark } = useTheme();
   const typedRole = useTyping();
   const [webglSupported, setWebglSupported] = useState(true);
   const taglineRef = useRef(null); const nameRef = useRef(null); const roleRef = useRef(null);
@@ -125,14 +127,14 @@ const Hero = () => {
   ];
 
   return (
-    <section id="home" className="relative w-full min-h-screen overflow-hidden" style={{ background: "#080808" }}>
-      <AIBackground />
-      <div className="absolute pointer-events-none z-0" style={{ top: "5%", right: "0%", width: 750, height: 750, background: "radial-gradient(ellipse, rgba(207,163,85,0.09) 0%, transparent 65%)", filter: "blur(55px)" }} />
+    <section id="home" className="relative w-full min-h-screen overflow-hidden" style={{ background: isDark ? "#080808" : "#e5e5e0" }}>
+      <AIBackground isDark={isDark} />
+      <div className="absolute pointer-events-none z-0" style={{ top: "5%", right: "0%", width: 750, height: 750, background: isDark ? "radial-gradient(ellipse, rgba(207,163,85,0.09) 0%, transparent 65%)" : "radial-gradient(ellipse, rgba(207,163,85,0.16) 0%, transparent 65%)", filter: "blur(55px)" }} />
 
-      <div ref={socialRef} className="hidden lg:flex fixed left-5 top-1/2 -translate-y-1/2 z-30 flex-col items-center gap-4 px-2.5 py-4 rounded-full" style={{ background: "rgba(16,16,16,0.85)", border: "1px solid rgba(255,255,255,0.07)", backdropFilter: "blur(8px)" }}>
+      <div ref={socialRef} className="hidden lg:flex fixed left-5 top-1/2 -translate-y-1/2 z-30 flex-col items-center gap-4 px-2.5 py-4 rounded-full" style={{ background: isDark ? "rgba(16,16,16,0.85)" : "rgba(255,255,255,0.8)", border: isDark ? "1px solid rgba(255,255,255,0.07)" : "1px solid rgba(0,0,0,0.1)", backdropFilter: "blur(8px)" }}>
         {SOCIALS.map(({ icon, href, label }) => (
           <a key={label} href={href} target="_blank" rel="noreferrer" title={label}
-            className="text-white/35 hover:text-gold transition-colors duration-300 p-1"
+            className={`${isDark ? "text-white/35" : "text-black/50"} hover:text-gold transition-colors duration-300 p-1`}
             onMouseEnter={(e) => gsap.to(e.currentTarget, { scale: 1.2, duration: 0.25 })}
             onMouseLeave={(e) => gsap.to(e.currentTarget, { scale: 1, duration: 0.25 })}
           >{icon}</a>
@@ -142,43 +144,43 @@ const Hero = () => {
 
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 min-h-screen">
         <div className="flex flex-col justify-center px-8 sm:px-12 lg:pl-28 xl:pl-32 lg:pr-6 pt-28 pb-16 lg:pt-0 lg:pb-0">
-          <p ref={taglineRef} className="text-[10px] sm:text-xs tracking-[0.45em] uppercase text-white/30 mb-8 font-light">
+          <p ref={taglineRef} className={`text-[10px] sm:text-xs tracking-[0.45em] uppercase mb-8 font-light ${isDark ? "text-white/30" : "text-black/40"}`}>
             Crafting Digital Excellence
           </p>
           <div ref={nameRef} className="mb-5">
-            <span className="block font-black text-white leading-[0.92]" style={{ fontSize: "clamp(58px, 9.5vw, 118px)" }}>CH.</span>
+            <span className={`block font-black leading-[0.92] ${isDark ? "text-white" : "text-black"}`} style={{ fontSize: "clamp(58px, 9.5vw, 118px)" }}>CH.</span>
             <span className="block font-black text-gold leading-[0.92]" style={{ fontSize: "clamp(58px, 9.5vw, 118px)" }}>SIDRA</span>
           </div>
           <div ref={roleRef} className="flex items-center gap-3 mb-4">
-            <span className="text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase text-white">Cloud Architect</span>
+            <span className={`text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase ${isDark ? "text-white" : "text-black/80"}`}>Cloud Architect</span>
             <span className="text-gold text-base opacity-80">|</span>
-            <span className="text-[11px] sm:text-xs font-light tracking-[0.22em] uppercase text-white/50">Full Stack Developer</span>
+            <span className={`text-[11px] sm:text-xs font-light tracking-[0.22em] uppercase ${isDark ? "text-white/50" : "text-black/50"}`}>Full Stack Developer</span>
           </div>
           <div ref={aiRef} className="flex items-center gap-2.5 mb-8">
             <span className="text-[9px] tracking-[0.28em] uppercase px-2 py-[3px] font-medium rounded-sm" style={{ color: "#cfa355", border: "1px solid rgba(207,163,85,0.25)", background: "rgba(207,163,85,0.06)" }}>AI</span>
-            <span className="text-sm text-white/45 font-light tracking-wide min-w-[160px]">{typedRole}</span>
+            <span className={`text-sm font-light tracking-wide min-w-[160px] ${isDark ? "text-white/45" : "text-black/55"}`}>{typedRole}</span>
             <span className="text-gold animate-pulse font-thin text-lg leading-none">|</span>
           </div>
-          <p ref={descRef} className="text-sm sm:text-[15px] leading-relaxed text-white/40 max-w-[420px] mb-10 font-light">
+          <p ref={descRef} className={`text-sm sm:text-[15px] leading-relaxed max-w-[420px] mb-10 font-light ${isDark ? "text-white/40" : "text-black/60"}`}>
             I design and build digital experiences that drive measurable results for growing businesses.
           </p>
           <div ref={ctaRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-10 lg:mb-0">
-            <a href="#work" className="flex items-center gap-3 pl-6 pr-2 py-2 rounded-full text-white text-sm font-light tracking-[0.07em] transition-all duration-300" style={{ border: "1.5px solid rgba(255,255,255,0.16)" }}
+            <a href="#work" className={`flex items-center gap-3 pl-6 pr-2 py-2 rounded-full text-sm font-light tracking-[0.07em] transition-all duration-300 ${isDark ? "text-white" : "text-black"}`} style={{ border: isDark ? "1.5px solid rgba(255,255,255,0.16)" : "1.5px solid rgba(0,0,0,0.2)" }}
               onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(207,163,85,0.5)"; e.currentTarget.style.boxShadow = "0 0 20px rgba(207,163,85,0.12)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.16)"; e.currentTarget.style.boxShadow = "none"; }}>
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = isDark ? "rgba(255,255,255,0.16)" : "rgba(0,0,0,0.2)"; e.currentTarget.style.boxShadow = "none"; }}>
               <span>View My Work</span>
               <span className="w-9 h-9 rounded-full flex items-center justify-center bg-gold">
                 <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </span>
             </a>
-            <a href="#" className="flex items-center gap-2 text-sm font-light tracking-[0.07em] text-white/40 hover:text-white/80 transition-colors duration-300">
+            <a href="/sidra-cv.html" target="_blank" rel="noreferrer" className={`flex items-center gap-2 text-sm font-light tracking-[0.07em] transition-colors duration-300 ${isDark ? "text-white/40 hover:text-white/80" : "text-black/50 hover:text-black/80"}`}>
               <span>Download CV</span>
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
             </a>
           </div>
           <div className="flex lg:hidden items-center gap-6">
             {SOCIALS.map(({ icon, href, label }) => (
-              <a key={label} href={href} target="_blank" rel="noreferrer" className="text-white/35 hover:text-gold transition-colors duration-300">{icon}</a>
+              <a key={label} href={href} target="_blank" rel="noreferrer" className={`${isDark ? "text-white/35" : "text-black/50"} hover:text-gold transition-colors duration-300`}>{icon}</a>
             ))}
           </div>
         </div>
@@ -213,10 +215,10 @@ const Hero = () => {
       </div>
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-10">
-        <div className="w-6 h-10 rounded-full flex items-start justify-center pt-2" style={{ border: "1.5px solid rgba(255,255,255,0.12)" }}>
+        <div className="w-6 h-10 rounded-full flex items-start justify-center pt-2" style={{ border: isDark ? "1.5px solid rgba(255,255,255,0.12)" : "1.5px solid rgba(0,0,0,0.2)" }}>
           <div className="w-1 h-2 rounded-full animate-bounce" style={{ background: "rgba(207,163,85,0.5)" }} />
         </div>
-        <span className="text-[9px] tracking-[0.38em] uppercase text-white/20 font-light">Scroll Down</span>
+        <span className={`text-[9px] tracking-[0.38em] uppercase font-light ${isDark ? "text-white/20" : "text-black/35"}`}>Scroll Down</span>
       </div>
     </section>
   );

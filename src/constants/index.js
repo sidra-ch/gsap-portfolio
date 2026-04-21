@@ -85,7 +85,7 @@ export const projects = [
       "Full-stack e-commerce application with product listing & filtering, shopping cart, checkout system, and secure authentication.",
     href: "#",
     github: "#",
-    image: "/assets/projects/sapphura-project.png",
+    image: "/assets/projects/sapphura-ecommerce.png.png",
     bgImage: "/assets/backgrounds/blanket.jpg",
     featured: true,
     frameworks: [
