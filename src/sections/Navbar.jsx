@@ -1,148 +1,157 @@
-import React, { useEffect } from 'react'
-import { useRef } from 'react'
-import { socials } from '../constants';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { useState } from 'react';
-import { Link } from 'react-scroll';
+﻿import React, { useEffect, useState, useRef } from "react";
+import { socials } from "../constants";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { Link } from "react-scroll";
+
+const NAV_LINKS = [
+  { label: "Home", to: "home" },
+  { label: "About", to: "about" },
+  { label: "Skills", to: "skills" },
+  { label: "Projects", to: "work" },
+  { label: "Contact", to: "contact" },
+];
+
+const MENU_LINKS = [
+  { label: "Home", to: "home" },
+  { label: "About", to: "about" },
+  { label: "Services", to: "services" },
+  { label: "Skills", to: "skills" },
+  { label: "Projects", to: "work" },
+  { label: "Contact", to: "contact" },
+];
 
 const Navbar = () => {
-    const navRef = useRef(null);
-    const contactRef = useRef(null);
-    const linksRef = useRef([]);
-    const topLineRef = useRef(null);
-    const bottomLineRef = useRef(null);
-    const tl = useRef(null);
-    const iconTl = useRef(null);
-    const [isOpen, setIsOpen] = useState(false);
-    const [showBurger, setShowBurger] = useState(true);
+  const navRef = useRef(null);
+  const contactRef = useRef(null);
+  const linksRef = useRef([]);
+  const topLineRef = useRef(null);
+  const bottomLineRef = useRef(null);
+  const tl = useRef(null);
+  const iconTl = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-    useGSAP(() => {
-        gsap.set(navRef.current, { xPercent: 100});
-        gsap.set([linksRef.current, contactRef.current], {
-            autoAlpha: 0,
-            x: -20
-         });
+  useGSAP(() => {
+    gsap.set(navRef.current, { xPercent: 100 });
+    gsap.set([...linksRef.current.filter(Boolean), contactRef.current], { autoAlpha: 0, x: -20 });
 
-         tl.current = gsap
-         .timeline({paused: true}).to(navRef.current, {
-            xPercent: 0,
-            duration: 1,
-            ease: "power3.out"
-         })
-         .to (linksRef.current, {
-            autoAlpha: 1,
-            x: 0,
-            stagger: 0.1,
-            duration: 0.5,
-            ease: "power2.out"
-          },
-          "<"
-         )
-         .to(contactRef.current, {
-          autoAlpha: 1,
-          x: 0,
-          duration: 0.5,
-          ease: "power2.out",
-         },
-         "<+0.2"
-        );
+    tl.current = gsap.timeline({ paused: true })
+      .to(navRef.current, { xPercent: 0, duration: 0.8, ease: "power3.out" })
+      .to(linksRef.current.filter(Boolean), { autoAlpha: 1, x: 0, stagger: 0.07, duration: 0.5, ease: "power2.out" }, "<+0.1")
+      .to(contactRef.current, { autoAlpha: 1, x: 0, duration: 0.4, ease: "power2.out" }, "<+0.1");
 
-         iconTl.current = gsap
-         .timeline({ paused: true}).to(topLineRef.current, {
-          rotate: 45,
-          y: 3.3,
-          duration: 0.3,
-          ease: "power2.inOut",
-         })
-         .to(bottomLineRef.current, {
-          rotate: -45,
-          y: -3.3,
-          duration: 0.3,
-          ease: "power2.inOut",
-         }, "<"
-        );
-    }, []);
+    iconTl.current = gsap.timeline({ paused: true })
+      .to(topLineRef.current, { rotate: 45, y: 3.3, duration: 0.3, ease: "power2.inOut" })
+      .to(bottomLineRef.current, { rotate: -45, y: -3.3, duration: 0.3, ease: "power2.inOut" }, "<");
+  }, []);
 
-    useEffect(() => {
-      let lastScrollY = window.scrollY;
-      const handleScroll = () => {
-        const currentScrollY = window.scrollY;
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-         setShowBurger(currentScrollY <= lastScrollY || currentScrollY < 10 ); 
-
-          lastScrollY = currentScrollY;
-
-      };
-      window.addEventListener("scroll", handleScroll, {
-        passive: true,
-      });
-      return() => window.removeEventListener("scroll" , handleScroll)
-    }, [])
-
-    const toggleMenu = () => {
-      if(isOpen){
-        tl.current.reverse();
-        iconTl.current.reverse();
-      } else {
-        tl.current.play();
-        iconTl.current.play();
-      }
-      setIsOpen(!isOpen);
-    };
+  const toggleMenu = () => {
+    if (isOpen) {
+      tl.current.reverse();
+      iconTl.current.reverse();
+    } else {
+      tl.current.play();
+      iconTl.current.play();
+    }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
-    <nav ref={navRef} className='fixed z-50 flex flex-col justify-between w-full h-full px-10 uppercase bg-black text-white/80 py-28 gap-y-10 md:w-1/2 md:left-1/2 '>
-        <div className='flex flex-col text-5xl gap-y-2 md:text-6xl lg:text-8xl'>
-            {["home" ,"services", "about", "work", "contact"].map((section, index) =>(
-                <div key={index}
-                ref={(el) => (linksRef.current[index] = el)}>
-                  <Link className='transition-all duration-300 cursor-pointer hover:text-white' to={`${section}`}
-                  smooth
-                  offset={0}
-                  duration={2000}>
-                    {section}
-                  </Link>
-                </div>
-            ))}
-        </div>
-        <div 
-        ref={contactRef} className='flex flex-col flex-wrap justify-between gap-8 md:flex-row'>
-         <div className='font-light'>
-            <p className='tracking-wider text-white/50'>E-mail</p>
-            <p className='text-xl tracking-widest lowercase text-pretty'>ms.sidra@gmail.com</p>
-         </div>
-         <div className='font-light'>
-            <p className='tracking-wider text-white/50'>Social Media</p>
-            <div className='flex flex-col flex-wrap md:flex-row gap-x-2'>
-                {socials.map((social,index)=>(
-                 <a key={index}
-                 href='{social.hrefs'
-                  className='text-sm leading-loose tracking-widest uppercase hovr:text-white transition-colors duration-300'>
-                    {"{"}
-                    {social.name}
-                    {"}"}
-                 </a>
-                ))}
+      <header
+        className="fixed top-0 left-0 right-0 z-[55] flex items-center justify-between px-8 sm:px-10 h-16 sm:h-20 transition-all duration-500"
+        style={{
+          background: scrolled ? "rgba(8,8,8,0.92)" : "transparent",
+          backdropFilter: scrolled ? "blur(16px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "none",
+        }}
+      >
+        <Link to="home" smooth duration={1500} className="cursor-pointer select-none">
+          <div className="font-black leading-none">
+            <div className="text-xl sm:text-2xl text-white tracking-tight">CH.</div>
+            <div className="text-xl sm:text-2xl tracking-tight text-gold">SIDRA</div>
+          </div>
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-7 lg:gap-10">
+          {NAV_LINKS.map(({ label, to }) => (
+            <Link
+              key={to}
+              to={to}
+              smooth
+              duration={1500}
+              spy
+              activeClass="!text-gold"
+              offset={-80}
+              className="relative text-[11px] tracking-[0.12em] uppercase text-white/50 hover:text-white cursor-pointer transition-colors duration-300"
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+
+        <button
+          onClick={toggleMenu}
+          className="w-11 h-11 flex flex-col items-center justify-center gap-[5px] rounded-full border border-white/15 bg-black/60 cursor-pointer hover:border-gold/30 transition-all duration-300"
+        >
+          <span ref={topLineRef} className="block w-[18px] h-[1.5px] bg-white rounded-full origin-center" />
+          <span ref={bottomLineRef} className="block w-[18px] h-[1.5px] bg-white rounded-full origin-center" />
+        </button>
+      </header>
+
+      <nav
+        ref={navRef}
+        className="fixed z-50 flex flex-col justify-between w-full h-full px-10 bg-[#0a0a0a] border-l border-white/5 py-28 gap-y-10 md:w-1/2 md:left-1/2"
+      >
+        <div className="flex flex-col gap-y-1 font-black uppercase">
+          {MENU_LINKS.map((section, index) => (
+            <div key={index} ref={(el) => (linksRef.current[index] = el)}>
+              <Link
+                className="text-4xl sm:text-5xl lg:text-6xl transition-all duration-300 cursor-pointer hover:text-gold hover:translate-x-3 text-white/80 inline-block"
+                to={section.to}
+                smooth
+                offset={-80}
+                duration={1500}
+                onClick={toggleMenu}
+              >
+                {section.label}
+              </Link>
             </div>
-         </div>
+          ))}
         </div>
-    </nav>
-    <div className='fixed z-50 flex flex-col items-center justify-center gap-1 transition-all duration-300 bg-black rounded-full cursor-pointer w-14 h-14 md:w-20 md:h-20 top-4 right-10' onClick={toggleMenu}
-    style={
-      showBurger? 
-      {clipPath:"circle(50% at 50% 50%)"} : 
-      {clipPath:"circle(0% at 50% 50%)"} }>
-        <span 
-        ref={topLineRef} className='block w-8 h-0.5 bg-white rounded-full origin-center'></span>
-        <span 
-        ref={bottomLineRef}
-        className='block w-8 h-0.5 bg-white rounded-full origin-center'></span>
 
-    </div>
+        <div ref={contactRef} className="flex flex-col flex-wrap justify-between gap-6 md:flex-row">
+          <div className="font-light">
+            <p className="tracking-[0.3em] text-white/30 text-[10px] uppercase mb-1">E-mail</p>
+            <p className="text-sm tracking-widest lowercase text-gold/80">ms.sidrachaudhary@gmail.com</p>
+          </div>
+          <div className="font-light">
+            <p className="tracking-[0.3em] text-white/30 text-[10px] uppercase mb-1">Social</p>
+            <div className="flex flex-wrap gap-x-3">
+              {socials.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-xs leading-loose tracking-widest uppercase text-white/50 hover:text-gold transition-colors duration-300"
+                >
+                  {"{ "}{social.name}{" }"}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </nav>
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

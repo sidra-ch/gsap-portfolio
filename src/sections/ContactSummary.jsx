@@ -36,7 +36,7 @@ const ContactSummary = () => {
   return (
     <section
       ref={containerRef}
-      className="flex flex-col items-center justify-between min-h-screen gap-12 mt-16"
+      className="flex flex-col items-center justify-between min-h-screen gap-12 mt-16 dark:text-white"
     >
       <Marquee items={items} />
       <div className="overflow-hidden font-light text-center contact-text-responsive">
@@ -50,7 +50,7 @@ const ContactSummary = () => {
       <Marquee
         items={items2}
         reverse={true}
-        className="text-black bg-transparent border-y-2"
+        className="text-black dark:text-white bg-transparent border-y-2 dark:border-white/20"
         iconClassName="stroke-gold stroke-2 text-primary"
         icon="material-symbols-light:square"
       />

@@ -39,15 +39,15 @@ const About = () => {
     });
   });
   return (
-    <section id="about" className="min-h-screen bg-black rounded-b-4xl">
+    <section id="about" className="min-h-screen bg-white dark:bg-black rounded-b-4xl">
       <AnimatedHeaderSection
         subTitle={"Cod with purpose, Built to scale"}
         title={"About"}
         text={text}
-        textColor={"text-white"}
+        textColor={"text-black dark:text-white"}
         withScrollTrigger={true}
       />
-      <div className="flex flex-col items-center justify-between gap-16 px-10 pb-16 text-xl font-light tracking-wide lg:flex-row md:text-2xl lg:text-3xl text-white/60">
+      <div className="flex flex-col items-center justify-between gap-16 px-10 pb-16 text-xl font-light tracking-wide lg:flex-row md:text-2xl lg:text-3xl text-black/60 dark:text-white/60">
         <img
           ref={imgRef}
           src="/assets/logos/logoimg.jpg"
