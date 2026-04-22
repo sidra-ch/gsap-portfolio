@@ -22,13 +22,13 @@ const ContactSummary = () => {
 
   useGSAP(() => {
     gsap.to(containerRef.current, {
+      yPercent: -4,
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "center center",
-        end: "+=800 center",
-        scrub: 0.5,
-        pin: true,
-        pinSpacing: true,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 0.7,
+        pin: false,
         markers: false,
       },
     });

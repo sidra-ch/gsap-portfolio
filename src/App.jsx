@@ -4,6 +4,8 @@ import Hero from "./sections/Hero";
 import ServiceSummary from "./sections/ServiceSummary";
 import Services from "./sections/Services";
 import ReactLenis from "lenis/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import About from "./sections/About";
 import Works from "./sections/Works";
 import ContactSummary from "./sections/ContactSummary";
@@ -16,8 +18,10 @@ import CustomCursor from "./components/CustomCursor";
 import SectionDivider from "./components/SectionDivider";
 
 const App = () => {
+  gsap.registerPlugin(ScrollTrigger);
   const { progress } = useProgress();
   const [isReady, setIsReady] = useState(false);
+  const lenisRef = React.useRef(null);
 
   useEffect(() => {
     if (progress === 100) {
@@ -25,9 +29,40 @@ const App = () => {
     }
   }, [progress]);
 
+  useEffect(() => {
+    const lenis = lenisRef.current?.lenis;
+    if (!lenis) return undefined;
+
+    const onLenisScroll = () => ScrollTrigger.update();
+    lenis.on("scroll", onLenisScroll);
+
+    const update = (time) => {
+      lenis.raf(time * 1000);
+    };
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      lenis.off("scroll", onLenisScroll);
+      gsap.ticker.remove(update);
+    };
+  }, [isReady]);
+
   return (
     <ThemeProvider>
-      <ReactLenis root className="relative w-screen min-h-screen overflow-x-auto">
+      <ReactLenis
+        ref={lenisRef}
+        root
+        options={{
+          lerp: 0.085,
+          duration: 1.15,
+          smoothWheel: true,
+          wheelMultiplier: 0.9,
+          syncTouch: true,
+          touchMultiplier: 1.1,
+        }}
+        className="relative w-screen min-h-screen overflow-x-hidden"
+      >
         <CustomCursor />
         {!isReady && (
           <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 font-light">
