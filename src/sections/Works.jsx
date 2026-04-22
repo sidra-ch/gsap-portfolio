@@ -133,6 +133,9 @@ const Works = () => {
             {/* title row */}
             <div className="flex items-center justify-between px-10 text-black dark:text-white transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
               <div className="flex items-center gap-3">
+                <span className="text-[10px] tracking-widest text-SageGray dark:text-white/30 font-light tabular-nums hidden md:block">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
                 <h2 className="lg:text-[32px] text-[26px] leading-none">
                   {project.name}
                 </h2>
@@ -145,7 +148,7 @@ const Works = () => {
               <div className="flex items-center gap-3">
                 {/* Action buttons - visible on hover (desktop) */}
                 <div className="items-center hidden gap-2 transition-opacity duration-300 opacity-0 md:flex md:group-hover:opacity-100">
-                  {project.href && (
+                  {project.href && project.href !== "#" && (
                     <a
                       href={project.href}
                       target="_blank"
@@ -155,7 +158,7 @@ const Works = () => {
                       Live Demo
                     </a>
                   )}
-                  {project.github && (
+                  {project.github && project.github !== "#" && (
                     <a
                       href={project.github}
                       target="_blank"
@@ -213,7 +216,7 @@ const Works = () => {
                 />
               </div>
               <div className="flex flex-wrap gap-2 px-10 mt-3">
-                {project.href && (
+                {project.href && project.href !== "#" && (
                   <a
                     href={project.href}
                     target="_blank"
@@ -224,7 +227,7 @@ const Works = () => {
                     Live Demo
                   </a>
                 )}
-                {project.github && (
+                {project.github && project.github !== "#" && (
                   <a
                     href={project.github}
                     target="_blank"

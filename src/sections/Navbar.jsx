@@ -8,19 +8,13 @@ import { useTheme } from "../components/ThemeProvider";
 const NAV_LINKS = [
   { label: "Home", to: "home" },
   { label: "About", to: "about" },
-  { label: "Skills", to: "skills" },
-  { label: "Projects", to: "work" },
-  { label: "Contact", to: "contact" },
-];
-
-const MENU_LINKS = [
-  { label: "Home", to: "home" },
-  { label: "About", to: "about" },
   { label: "Services", to: "services" },
   { label: "Skills", to: "skills" },
   { label: "Projects", to: "work" },
   { label: "Contact", to: "contact" },
 ];
+
+const MENU_LINKS = NAV_LINKS;
 
 const Navbar = () => {
   const { isDark } = useTheme();
@@ -101,6 +95,7 @@ const Navbar = () => {
 
         <button
           onClick={toggleMenu}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
           className={`w-11 h-11 flex flex-col items-center justify-center gap-[5px] rounded-full cursor-pointer hover:border-gold/30 transition-all duration-300 ${isDark ? "border border-white/15 bg-black/60" : "border border-black/20 bg-white/60"}`}
         >
           <span ref={topLineRef} className={`block w-[18px] h-[1.5px] rounded-full origin-center ${isDark ? "bg-white" : "bg-black"}`} />

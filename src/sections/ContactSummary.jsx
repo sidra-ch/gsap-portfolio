@@ -22,21 +22,19 @@ const ContactSummary = () => {
 
   useGSAP(() => {
     gsap.to(containerRef.current, {
-      yPercent: -4,
+      yPercent: -2,
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top bottom",
         end: "bottom top",
-        scrub: 0.7,
-        pin: false,
-        markers: false,
+        scrub: 1,
       },
     });
   }, []);
   return (
     <section
       ref={containerRef}
-      className="flex flex-col items-center justify-between min-h-screen gap-12 mt-16 dark:text-white"
+      className="flex flex-col items-center justify-between py-24 gap-12 dark:text-white overflow-hidden"
     >
       <Marquee items={items} />
       <div className="overflow-hidden font-light text-center contact-text-responsive">

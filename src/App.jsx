@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
 import ServiceSummary from "./sections/ServiceSummary";
@@ -18,8 +18,9 @@ import CustomCursor from "./components/CustomCursor";
 import SectionDivider from "./components/SectionDivider";
 import { useMediaQuery } from "react-responsive";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const App = () => {
-  gsap.registerPlugin(ScrollTrigger);
   const { progress } = useProgress();
   const [isReady, setIsReady] = useState(false);
   const lenisRef = React.useRef(null);
@@ -29,63 +30,73 @@ const App = () => {
   const lenisOptions = React.useMemo(() => {
     if (isMobile) {
       return {
-        lerp: 0.12,
-        duration: 1.35,
+        lerp: 0.1,
         smoothWheel: true,
-        wheelMultiplier: 0.75,
+        wheelMultiplier: 0.8,
         syncTouch: true,
-        touchMultiplier: 0.9,
+        touchMultiplier: 1.0,
+        infinite: false,
       };
     }
-
     if (isTablet) {
       return {
-        lerp: 0.1,
-        duration: 1.2,
+        lerp: 0.09,
         smoothWheel: true,
-        wheelMultiplier: 0.82,
+        wheelMultiplier: 0.85,
         syncTouch: true,
-        touchMultiplier: 1,
+        touchMultiplier: 1.0,
+        infinite: false,
       };
     }
-
     return {
-      lerp: 0.075,
-      duration: 1.05,
+      lerp: 0.08,
       smoothWheel: true,
-      wheelMultiplier: 0.88,
+      wheelMultiplier: 0.9,
       syncTouch: false,
-      touchMultiplier: 1,
+      infinite: false,
     };
   }, [isMobile, isTablet]);
 
   useEffect(() => {
     if (progress === 100) {
-      setIsReady(true);
+      // Small delay so DOM is fully painted before ScrollTrigger measures
+      const t = setTimeout(() => setIsReady(true), 100);
+      return () => clearTimeout(t);
     }
   }, [progress]);
 
+  // Wire Lenis → GSAP ticker once ready
   useEffect(() => {
-    if (!isReady) return undefined;
+    if (!isReady) return;
 
     const lenis = lenisRef.current?.lenis;
-    if (!lenis) return undefined;
+    if (!lenis) return;
 
-    const onLenisScroll = () => ScrollTrigger.update();
-    lenis.on("scroll", onLenisScroll);
+    // Keep ScrollTrigger in sync with Lenis scroll position
+    lenis.on("scroll", ScrollTrigger.update);
 
-    const update = (time) => {
-      lenis.raf(time * 1000);
-    };
-    gsap.ticker.add(update);
+    // Drive Lenis from GSAP's RAF so they share the same frame
+    const rafHandler = (time) => lenis.raf(time * 1000);
+    gsap.ticker.add(rafHandler);
     gsap.ticker.lagSmoothing(0);
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+
+    // Refresh after a frame so all sticky/pin calculations are correct
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+
+    // Re-refresh on resize so triggers don't drift
+    const onResize = () => {
+      ScrollTrigger.refresh();
+    };
+    window.addEventListener("resize", onResize, { passive: true });
 
     return () => {
-      lenis.off("scroll", onLenisScroll);
-      gsap.ticker.remove(update);
+      lenis.off("scroll", ScrollTrigger.update);
+      gsap.ticker.remove(rafHandler);
+      window.removeEventListener("resize", onResize);
     };
-  }, [isReady, lenisOptions]);
+  }, [isReady]);
 
   return (
     <ThemeProvider>
@@ -97,24 +108,23 @@ const App = () => {
         className="relative w-screen min-h-screen overflow-x-hidden"
       >
         <CustomCursor />
+
+        {/* Loading screen */}
         {!isReady && (
-          <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 font-light">
-            <p className="mb-4 text-xl tracking-widest animate-pulse">
+          <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black text-white">
+            <p className="mb-4 text-xl tracking-widest font-light animate-pulse">
               Loading {Math.floor(progress)}%
             </p>
-            <div className="relative h-1 overflow-hidden rounded w-60 bg-white/20">
+            <div className="relative h-px overflow-hidden w-60 bg-white/20">
               <div
                 className="absolute top-0 left-0 h-full transition-all duration-300 bg-gold"
                 style={{ width: `${progress}%` }}
-              ></div>
+              />
             </div>
           </div>
         )}
-        <div
-          className={`${
-            isReady ? "opacity-100" : "opacity-0"
-          } transition-opacity duration-1000`}
-        >
+
+        <div className={`${isReady ? "opacity-100" : "opacity-0"} transition-opacity duration-700`}>
           <Navbar />
           <Hero />
           <ServiceSummary />

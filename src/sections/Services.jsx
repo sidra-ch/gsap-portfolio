@@ -4,29 +4,40 @@ import { servicesData } from "../constants";
 import { useMediaQuery } from "react-responsive";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Gap between stacked cards (px converted to rem for consistency)
+const CARD_OFFSET = 48; // px per card
+
 const Services = () => {
   const text = `I build secure, high-performance full-stack apps
     with smooth UX to drive growth 
     not headaches.`;
+
   const serviceRefs = useRef([]);
-  const isDesktop = useMediaQuery({ minWidth: "48rem" }); //768px
+  const isDesktop = useMediaQuery({ minWidth: 768 });
+
   useGSAP(() => {
+    // Fade-in only — no y:200 which fights sticky
     serviceRefs.current.forEach((el) => {
       if (!el) return;
-
       gsap.from(el, {
-        y: 200,
+        opacity: 0,
+        duration: 0.7,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 80%",
+          start: "top 85%",
+          once: true,
         },
-        duration: 1,
-        ease: "circ.out",
       });
     });
   }, []);
+
   return (
-    <section id="services" className="min-h-screen bg-white dark:bg-black rounded-t-4xl ">
+    <section id="services" className="bg-white dark:bg-black rounded-t-4xl">
       <AnimatedHeaderSection
         subTitle={"Behind the scene, Beyond the screen"}
         title={"Services"}
@@ -34,45 +45,59 @@ const Services = () => {
         textColor={"text-black dark:text-white"}
         withScrollTrigger={false}
       />
-      {servicesData.map((service, index) => (
-        <div
-          ref={(el) => (serviceRefs.current[index] = el)}
-          key={index}
-          className="sticky px-10 pt-6 pb-12 text-black dark:text-white bg-white dark:bg-black border-t-2 border-black/20 dark:border-white/30"
-          style={
-            isDesktop
-              ? {
-                  top: `calc(10vh + ${index * 5}em)`,
-                  marginBottom: `${(servicesData.length - index - 1) * 5}rem`,
-                }
-              : { top: 0 }
-          }
-        >
-          <div className="flex items-center justify-between gap-4 font-light">
-            <div className="flex flex-col gap-6">
-              <h2 className="text-3xl lg:text-4xl">{service.title}</h2>
-              <p className="text-xl leading-relaxed tracking-widest lg:text-2xl text-black/60 dark:text-white/60 text-pretty">
-                {service.description}
-              </p>
-              <div className="flex flex-col gap-2 text-2xl sm:gap-4 lg:text-3xl text-black/80 dark:text-white/80">
-                {service.items.map((item, itemIndex) => (
-                  <div key={`item-${index}-${itemIndex}`}>
-                    <h3 className="flex">
-                      <span className="mr-12 text-lg text-black/30 dark:text-white/30">
-                        0{itemIndex + 1}
-                      </span>
-                      {item.title}
-                    </h3>
-                    {itemIndex < service.items.length - 1 && (
-                      <div className="w-full h-px my-2 bg-black/20 dark:bg-white/30" />
-                    )}
+
+      {/* Sticky card stack */}
+      <div>
+        {servicesData.map((service, index) => {
+          const topOffset = isDesktop
+            ? `calc(10vh + ${index * CARD_OFFSET}px)`
+            : "0px";
+
+          return (
+            <div
+              key={index}
+              ref={(el) => (serviceRefs.current[index] = el)}
+              className="sticky px-10 pt-6 pb-12 text-black dark:text-white bg-white dark:bg-black border-t-2 border-black/20 dark:border-white/30"
+              style={{ top: topOffset, willChange: "transform" }}
+            >
+              <div className="flex items-start justify-between gap-4 font-light">
+                <div className="flex flex-col gap-6 w-full">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-3xl lg:text-4xl">{service.title}</h2>
+                    <span className="text-[10px] tracking-[0.3em] uppercase text-SageGray dark:text-white/30 font-light">
+                      0{index + 1}
+                    </span>
                   </div>
-                ))}
+                  <p className="text-xl leading-relaxed tracking-widest lg:text-2xl text-black/60 dark:text-white/60 text-pretty max-w-3xl">
+                    {service.description}
+                  </p>
+                  <div className="flex flex-col gap-2 text-2xl sm:gap-4 lg:text-3xl text-black/80 dark:text-white/80">
+                    {service.items.map((item, itemIndex) => (
+                      <div key={`item-${index}-${itemIndex}`}>
+                        <h3 className="flex items-baseline">
+                          <span className="mr-12 text-lg text-black/30 dark:text-white/30">
+                            0{itemIndex + 1}
+                          </span>
+                          <span>{item.title}</span>
+                          <span className="ml-3 text-sm font-light text-black/40 dark:text-white/40">
+                            {item.description}
+                          </span>
+                        </h3>
+                        {itemIndex < service.items.length - 1 && (
+                          <div className="w-full h-px my-2 bg-black/10 dark:bg-white/20" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      ))}
+          );
+        })}
+      </div>
+
+      {/* Spacer so the last card scrolls fully off before next section */}
+      <div style={{ height: `${(servicesData.length - 1) * CARD_OFFSET}px` }} />
     </section>
   );
 };

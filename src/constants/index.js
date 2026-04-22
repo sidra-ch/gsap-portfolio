@@ -211,14 +211,37 @@ export const projects = [
 ];
 
 export const skillsData = [
-  { name: "React / Next.js", level: 95 },
-  { name: "Node.js / Express", level: 90 },
-  { name: "TypeScript", level: 88 },
-  { name: "PostgreSQL / MongoDB", level: 85 },
-  { name: "GSAP / Animations", level: 92 },
-  { name: "Docker / DevOps", level: 78 },
-  { name: "Three.js / WebGL", level: 80 },
-  { name: "Tailwind CSS", level: 95 },
+  {
+    category: "Frontend",
+    icon: "logos:react",
+    skills: [
+      { name: "React / Next.js", level: 95, icon: "logos:react" },
+      { name: "TypeScript", level: 88, icon: "logos:typescript-icon" },
+      { name: "Tailwind CSS", level: 95, icon: "logos:tailwindcss-icon" },
+      { name: "GSAP / Animations", level: 92, icon: "logos:greensock-icon" },
+      { name: "Three.js / WebGL", level: 80, icon: "logos:threejs" },
+    ],
+  },
+  {
+    category: "Backend",
+    icon: "logos:nodejs-icon",
+    skills: [
+      { name: "Node.js / Express", level: 90, icon: "logos:nodejs-icon" },
+      { name: "ASP.NET Core", level: 85, icon: "logos:dotnet" },
+      { name: "PostgreSQL / MongoDB", level: 85, icon: "logos:postgresql" },
+      { name: "REST / GraphQL APIs", level: 88, icon: "mdi:api" },
+    ],
+  },
+  {
+    category: "DevOps & Cloud",
+    icon: "logos:docker-icon",
+    skills: [
+      { name: "Docker / Kubernetes", level: 78, icon: "logos:docker-icon" },
+      { name: "Azure / AWS", level: 75, icon: "logos:azure-icon" },
+      { name: "CI/CD Pipelines", level: 80, icon: "logos:github-actions" },
+      { name: "Linux / Nginx", level: 77, icon: "logos:linux-tux" },
+    ],
+  },
 ];
 
 export const socials = [

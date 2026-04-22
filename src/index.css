@@ -33,9 +33,13 @@
 body {
   background: #e5e5e0;
   color: black;
-  overflow-x: hidden;
+  /* overflow-x hidden on html instead of body — body overflow:hidden breaks Lenis on some browsers */
   font-family: var(--font-amiamie);
   transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 .dark body,
@@ -56,6 +60,12 @@ html.dark body {
 
 @utility clip-path {
   clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+}
+
+/* GPU-composited layers for sticky/animated elements */
+@utility gpu-layer {
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 @utility banner-text-responsive {
