@@ -49,13 +49,7 @@ const Contact = () => {
                 ms.sidrachaudhary@gmail.com
               </p>
             </div>
-            <div className="social-link">
-              <h2>Phone</h2>
-              <div className="w-full h-px my-2 bg-black/20 dark:bg-white/30" />
-              <p className="text-xl lowercase md:text-2xl lg:text-3xl">
-                +92 334 4020777
-              </p>
-            </div>
+          
             <div className="social-link">
               <h2>Social Media</h2>
               <div className="w-full h-px my-2 bg-black/20 dark:bg-white/30" />
