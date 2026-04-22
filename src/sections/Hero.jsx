@@ -119,9 +119,9 @@ const Hero = () => {
       gsap.fromTo(
         planetRef.current,
         { x: isMobile ? -120 : -180, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1.7, ease: "power3.out", delay: 0.15 }
+        { x: 0, opacity: isDark ? 0.96 : 0.9, duration: 1.7, ease: "power3.out", delay: 0.15 }
       );
-      gsap.to(planetRef.current, { y: 18, duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to(planetRef.current, { y: 18, duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.9 });
     }
   }, [isMobile]);
 
@@ -151,7 +151,7 @@ const Hero = () => {
         <div
           ref={planetRef}
           className="absolute inset-0 z-10 pointer-events-none"
-          style={{ opacity: isDark ? 0.96 : 0.9 }}
+          style={{ opacity: 0 }}
         >
           {webglSupported && (
             <Canvas shadows dpr={[1, 2]} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} camera={{ position: [0, 0.7, 7.2], fov: 36, near: 0.1, far: 200 }}>
