@@ -16,16 +16,17 @@ const About = () => {
 🎸 Strumming chords while CI pipelines pass (multitasking at its finest)`;
   const imgRef = useRef(null);
   useGSAP(() => {
-    gsap.to("#about", {
-      scale: 0.95,
+    gsap.from("#about", {
+      y: 40,
+      opacity: 0,
+      duration: 0.9,
+      ease: "power2.out",
       scrollTrigger: {
         trigger: "#about",
-        start: "bottom 80%",
-        end: "bottom 20%",
-        scrub: true,
+        start: "top 82%",
+        once: true,
         markers: false,
       },
-      ease: "power1.inOut",
     });
 
     gsap.set(imgRef.current, {
@@ -35,9 +36,13 @@ const About = () => {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
       duration: 2,
       ease: "power4.out",
-      scrollTrigger: { trigger: imgRef.current },
+      scrollTrigger: {
+        trigger: imgRef.current,
+        start: "top 85%",
+        once: true,
+      },
     });
-  });
+  }, []);
   return (
     <section id="about" className="min-h-screen bg-white dark:bg-black rounded-b-4xl">
       <AnimatedHeaderSection
