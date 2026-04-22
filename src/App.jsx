@@ -16,12 +16,48 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import ThemeToggle from "./components/ThemeToggle";
 import CustomCursor from "./components/CustomCursor";
 import SectionDivider from "./components/SectionDivider";
+import { useMediaQuery } from "react-responsive";
 
 const App = () => {
   gsap.registerPlugin(ScrollTrigger);
   const { progress } = useProgress();
   const [isReady, setIsReady] = useState(false);
   const lenisRef = React.useRef(null);
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const isTablet = useMediaQuery({ minWidth: 769, maxWidth: 1024 });
+
+  const lenisOptions = React.useMemo(() => {
+    if (isMobile) {
+      return {
+        lerp: 0.12,
+        duration: 1.35,
+        smoothWheel: true,
+        wheelMultiplier: 0.75,
+        syncTouch: true,
+        touchMultiplier: 0.9,
+      };
+    }
+
+    if (isTablet) {
+      return {
+        lerp: 0.1,
+        duration: 1.2,
+        smoothWheel: true,
+        wheelMultiplier: 0.82,
+        syncTouch: true,
+        touchMultiplier: 1,
+      };
+    }
+
+    return {
+      lerp: 0.075,
+      duration: 1.05,
+      smoothWheel: true,
+      wheelMultiplier: 0.88,
+      syncTouch: false,
+      touchMultiplier: 1,
+    };
+  }, [isMobile, isTablet]);
 
   useEffect(() => {
     if (progress === 100) {
@@ -53,14 +89,7 @@ const App = () => {
       <ReactLenis
         ref={lenisRef}
         root
-        options={{
-          lerp: 0.085,
-          duration: 1.15,
-          smoothWheel: true,
-          wheelMultiplier: 0.9,
-          syncTouch: true,
-          touchMultiplier: 1.1,
-        }}
+        options={lenisOptions}
         className="relative w-screen min-h-screen overflow-x-hidden"
       >
         <CustomCursor />
