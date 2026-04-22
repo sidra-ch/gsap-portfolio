@@ -66,6 +66,8 @@ const App = () => {
   }, [progress]);
 
   useEffect(() => {
+    if (!isReady) return undefined;
+
     const lenis = lenisRef.current?.lenis;
     if (!lenis) return undefined;
 
@@ -77,18 +79,20 @@ const App = () => {
     };
     gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
+    requestAnimationFrame(() => ScrollTrigger.refresh());
 
     return () => {
       lenis.off("scroll", onLenisScroll);
       gsap.ticker.remove(update);
     };
-  }, [isReady]);
+  }, [isReady, lenisOptions]);
 
   return (
     <ThemeProvider>
       <ReactLenis
         ref={lenisRef}
         root
+        autoRaf={false}
         options={lenisOptions}
         className="relative w-screen min-h-screen overflow-x-hidden"
       >
