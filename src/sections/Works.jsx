@@ -112,13 +112,13 @@ const Works = () => {
         withScrollTrigger={true}
       />
       <div
-        className="relative flex flex-col font-light"
+        className="relative flex flex-col gap-4 px-4 pb-8 font-light md:px-8"
         onMouseMove={handleMouseMove}
       >
         {projects.map((project, index) => (
           <div
             key={project.id}
-            className="project-row relative flex flex-col gap-1 py-5 group md:gap-0"
+            className="project-row relative flex flex-col gap-3 py-6 group md:gap-3 md:rounded-2xl md:border md:border-black/10 md:dark:border-white/10 md:px-4"
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={() => handleMouseLeave(index)}
           >
@@ -127,16 +127,16 @@ const Works = () => {
               ref={(el) => {
                 overlayRefs.current[index] = el;
               }}
-              className="absolute inset-0 hidden md:block duration-200 bg-black dark:bg-white/10 -z-10 clip-path"
+              className="absolute inset-0 hidden md:block duration-200 bg-black dark:bg-white/10 -z-10 clip-path md:rounded-2xl"
             />
 
             {/* title row */}
-            <div className="flex items-center justify-between px-10 text-black dark:text-white transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
+            <div className="flex items-center justify-between px-6 text-black dark:text-white transition-all duration-500 md:px-6 md:group-hover:px-8 md:group-hover:text-white">
               <div className="flex items-center gap-3">
                 <span className="text-[10px] tracking-widest text-SageGray dark:text-white/30 font-light tabular-nums hidden md:block">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <h2 className="lg:text-[32px] text-[26px] leading-none">
+                <h2 className="cinematic-title lg:text-[42px] text-[30px] leading-none">
                   {project.name}
                 </h2>
                 {project.featured && (
@@ -184,11 +184,31 @@ const Works = () => {
               </div>
             </div>
 
+            <div className="grid items-start grid-cols-1 gap-5 px-6 md:grid-cols-[1.4fr_1fr] md:px-6 md:group-hover:px-8 transition-all duration-500">
+              <p className="max-w-3xl text-sm leading-relaxed text-black/70 dark:text-white/65 md:text-[15px] md:group-hover:text-white/80">
+                {project.description}
+              </p>
+              <div className="grid grid-cols-2 gap-4 text-[10px] uppercase tracking-[0.24em]">
+                <div>
+                  <p className="mb-1 text-black/40 dark:text-white/35">Year</p>
+                  <p className="text-black/80 dark:text-white/80">{project.year || "2026"}</p>
+                </div>
+                <div>
+                  <p className="mb-1 text-black/40 dark:text-white/35">Role</p>
+                  <p className="text-black/80 dark:text-white/80">{project.role || "Digital Product Engineer"}</p>
+                </div>
+                <div className="col-span-2">
+                  <p className="mb-1 text-black/40 dark:text-white/35">Impact</p>
+                  <p className="text-gold">{project.impact || "Business performance improved"}</p>
+                </div>
+              </div>
+            </div>
+
             {/* divider */}
-            <div className="w-full h-0.5 bg-black/80 dark:bg-white/20" />
+            <div className="w-full h-px bg-black/30 dark:bg-white/20" />
 
             {/* framework badges */}
-            <div className="flex flex-wrap px-10 text-xs leading-loose uppercase transition-all duration-500 md:text-sm gap-x-5 md:group-hover:px-12">
+            <div className="flex flex-wrap px-6 text-xs leading-loose uppercase transition-all duration-500 md:text-sm gap-x-5 md:group-hover:px-8">
               {project.frameworks.map((framework) => (
                 <p
                   key={framework.id}
@@ -201,7 +221,7 @@ const Works = () => {
 
             {/* mobile: preview image + action buttons */}
             <div className="md:hidden">
-              <div className="relative flex items-center justify-center px-10 h-[400px]">
+              <div className="relative flex items-center justify-center px-6 h-[360px]">
                 <img
                   src={project.bgImage}
                   alt={`${project.name}-bg-image`}
@@ -212,10 +232,10 @@ const Works = () => {
                   src={project.image}
                   alt={`${project.name}-image`}
                   loading="lazy"
-                  className="absolute bg-center px-14 rounded-xl"
+                  className="absolute bg-center px-10 rounded-xl"
                 />
               </div>
-              <div className="flex flex-wrap gap-2 px-10 mt-3">
+              <div className="flex flex-wrap gap-2 px-6 mt-3">
                 {project.href && project.href !== "#" && (
                   <a
                     href={project.href}
@@ -255,7 +275,7 @@ const Works = () => {
         {/* desktop floating preview image */}
         <div
           ref={previewRef}
-          className="fixed -top-2/6 left-0 z-50 overflow-hidden border-8 border-black dark:border-white/20 pointer-events-none w-[960px] md:block hidden opacity-0"
+          className="fixed -top-2/6 left-0 z-50 overflow-hidden border-8 border-black dark:border-white/20 pointer-events-none w-[960px] md:block hidden opacity-0 rounded-2xl shadow-[0_40px_90px_rgba(0,0,0,0.35)]"
         >
           {currentIndex !== null && (
             <img

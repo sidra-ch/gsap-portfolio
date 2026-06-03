@@ -69,7 +69,7 @@ const AIBackground = ({ isDark }) => {
   return <canvas ref={canvasRef} className={`absolute inset-0 pointer-events-none z-0 ${isDark ? "opacity-50" : "opacity-25"}`} />;
 };
 
-const ROLES = ["Cloud Architect", "Full Stack Developer", "AI Engineer", "UI/UX Designer"];
+const ROLES = ["Cloud + Full-Stack", "Product Systems", "Execution Focus", "Outcome Driven"];
 const useTyping = () => {
   const [idx, setIdx] = useState(0);
   const [text, setText] = useState("");
@@ -132,11 +132,13 @@ const Hero = () => {
   ];
 
   return (
-    <section id="home" className="relative w-full min-h-screen overflow-hidden" style={{ background: isDark ? "#080808" : "#e5e5e0" }}>
+    <section id="home" className="cinematic-surface cinematic-grain relative w-full min-h-screen overflow-hidden" style={{ background: isDark ? "#0d0d0b" : "#e7e4db" }}>
       <AIBackground isDark={isDark} />
-      <div className="absolute pointer-events-none z-0" style={{ top: "5%", right: "0%", width: 750, height: 750, background: isDark ? "radial-gradient(ellipse, rgba(207,163,85,0.09) 0%, transparent 65%)" : "radial-gradient(ellipse, rgba(207,163,85,0.16) 0%, transparent 65%)", filter: "blur(55px)" }} />
+      <div className="absolute pointer-events-none z-0" style={{ top: "5%", right: "0%", width: 750, height: 750, background: isDark ? "radial-gradient(ellipse, rgba(198,151,75,0.16) 0%, transparent 65%)" : "radial-gradient(ellipse, rgba(198,151,75,0.2) 0%, transparent 65%)", filter: "blur(55px)" }} />
+      <div className="absolute pointer-events-none z-0" style={{ bottom: "-12%", left: "-10%", width: 620, height: 620, background: isDark ? "radial-gradient(circle, rgba(111,149,160,0.14) 0%, transparent 62%)" : "radial-gradient(circle, rgba(111,149,160,0.2) 0%, transparent 62%)", filter: "blur(40px)" }} />
+      <div className="absolute pointer-events-none z-0 cinematic-light-sweep" style={{ top: "-20%", left: "-15%", width: "55vw", height: "140vh", background: "linear-gradient(to right, rgba(255,255,255,0), rgba(255,240,205,0.12), rgba(255,255,255,0))", filter: "blur(4px)", animation: "cinematic-sweep 8s ease-in-out infinite alternate" }} />
 
-      <div ref={socialRef} className="hidden lg:flex fixed left-5 top-1/2 -translate-y-1/2 z-30 flex-col items-center gap-4 px-2.5 py-4 rounded-full" style={{ background: isDark ? "rgba(16,16,16,0.85)" : "rgba(255,255,255,0.8)", border: isDark ? "1px solid rgba(255,255,255,0.07)" : "1px solid rgba(0,0,0,0.1)", backdropFilter: "blur(8px)" }}>
+      <div ref={socialRef} className="hidden lg:flex absolute left-5 top-1/2 -translate-y-1/2 z-30 flex-col items-center gap-4 px-2.5 py-4 rounded-full" style={{ background: isDark ? "rgba(16,16,16,0.85)" : "rgba(255,255,255,0.8)", border: isDark ? "1px solid rgba(255,255,255,0.07)" : "1px solid rgba(0,0,0,0.1)", backdropFilter: "blur(8px)" }}>
         {SOCIALS.map(({ icon, href, label }) => (
           <a key={label} href={href} target="_blank" rel="noreferrer" title={label}
             className={`${isDark ? "text-white/35" : "text-black/50"} hover:text-gold transition-colors duration-300 p-1`}
@@ -166,7 +168,7 @@ const Hero = () => {
                 <pointLight position={[0, 6, -6]} intensity={3.5} color="#ffffff" />
                 <Float speed={0.45} rotationIntensity={0.05} floatIntensity={1.2}>
                   <Planet
-                    position={isMobile ? [-0.95, -0.35, 0] : [-1.65, -0.15, 0]}
+                    position={isMobile ? [-0.25, -0.32, 0] : [-0.72, -0.08, 0]}
                     scale={isMobile ? 1.85 : 2.4}
                   />
                 </Float>
@@ -185,37 +187,37 @@ const Hero = () => {
         <div className="relative z-20 flex min-h-screen items-center px-8 pt-28 pb-16 sm:px-12 lg:px-16 lg:pt-0 lg:pb-0 xl:px-24">
           <div className="flex w-full justify-start lg:justify-end">
             <div className="w-full max-w-[560px] lg:mr-[10vw] xl:mr-[12vw]">
-              <p ref={taglineRef} className={`text-[10px] sm:text-xs tracking-[0.45em] uppercase mb-8 font-light ${isDark ? "text-white/30" : "text-black/40"}`}>
-                Crafting Digital Excellence
+              <p ref={taglineRef} className={`cinematic-caption mb-8 font-medium ${isDark ? "text-white/45" : "text-black/45"}`}>
+                Build Better, Ship Faster
               </p>
               <div ref={nameRef} className="mb-5">
-                <span className={`block font-black leading-[0.92] ${isDark ? "text-white" : "text-black"}`} style={{ fontSize: "clamp(58px, 9.5vw, 118px)" }}>CH.</span>
-                <span className="block font-black text-gold leading-[0.92]" style={{ fontSize: "clamp(58px, 9.5vw, 118px)" }}>SIDRA</span>
+                <span className={`cinematic-title block leading-[0.87] ${isDark ? "text-white" : "text-black"}`} style={{ fontSize: "clamp(68px, 10.2vw, 126px)" }}>CH. SIDRA</span>
+                <span className={`cinematic-title block mt-1 leading-[0.95] ${isDark ? "text-white/70" : "text-black/65"}`} style={{ fontSize: "clamp(26px, 4.2vw, 54px)", letterSpacing: "0.14em" }}>CHAUDHARY</span>
               </div>
               <div ref={roleRef} className="flex items-center gap-3 mb-4">
-                <span className={`text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase ${isDark ? "text-white" : "text-black/80"}`}>Cloud Architect</span>
+                <span className={`text-[11px] sm:text-xs font-semibold tracking-[0.26em] uppercase ${isDark ? "text-white" : "text-black/80"}`}>Cloud + Full-Stack</span>
                 <span className="text-gold text-base opacity-80">|</span>
-                <span className={`text-[11px] sm:text-xs font-light tracking-[0.22em] uppercase ${isDark ? "text-white/50" : "text-black/50"}`}>Full Stack Developer</span>
+                <span className={`text-[11px] sm:text-xs font-light tracking-[0.26em] uppercase ${isDark ? "text-white/50" : "text-black/50"}`}>Product Delivery</span>
               </div>
               <div ref={aiRef} className="flex items-center gap-2.5 mb-8">
                 <span className="text-[9px] tracking-[0.28em] uppercase px-2 py-[3px] font-medium rounded-sm" style={{ color: "#cfa355", border: "1px solid rgba(207,163,85,0.25)", background: "rgba(207,163,85,0.06)" }}>AI</span>
-                <span className={`text-sm font-light tracking-wide min-w-[160px] ${isDark ? "text-white/45" : "text-black/55"}`}>{typedRole}</span>
+                <span className={`text-sm font-light tracking-wide min-w-[180px] ${isDark ? "text-white/45" : "text-black/55"}`}>{typedRole}</span>
                 <span className="text-gold animate-pulse font-thin text-lg leading-none">|</span>
               </div>
-              <p ref={descRef} className={`text-sm sm:text-[15px] leading-relaxed max-w-[420px] mb-10 font-light ${isDark ? "text-white/40" : "text-black/60"}`}>
-                I design and build digital experiences that drive measurable results for growing businesses.
+              <p ref={descRef} className={`text-sm sm:text-[15px] leading-relaxed max-w-[460px] mb-10 font-light ${isDark ? "text-white/55" : "text-black/65"}`}>
+                I turn product ideas into production-ready software with measurable outcomes.
               </p>
               <div ref={ctaRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-10 lg:mb-0">
-                <a href="#work" className={`flex items-center gap-3 pl-6 pr-2 py-2 rounded-full text-sm font-light tracking-[0.07em] transition-all duration-300 ${isDark ? "text-white" : "text-black"}`} style={{ border: isDark ? "1.5px solid rgba(255,255,255,0.16)" : "1.5px solid rgba(0,0,0,0.2)" }}
+                <a href="#work" className={`flex items-center gap-3 pl-6 pr-2 py-2 rounded-full text-sm font-medium tracking-[0.09em] transition-all duration-300 ${isDark ? "text-black" : "text-black"}`} style={{ border: "1.5px solid rgba(198,151,75,0.6)", background: "linear-gradient(120deg, rgba(255,229,179,0.96), rgba(198,151,75,0.95))" }}
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(207,163,85,0.5)"; e.currentTarget.style.boxShadow = "0 0 20px rgba(207,163,85,0.12)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = isDark ? "rgba(255,255,255,0.16)" : "rgba(0,0,0,0.2)"; e.currentTarget.style.boxShadow = "none"; }}>
-                  <span>View My Work</span>
-                  <span className="w-9 h-9 rounded-full flex items-center justify-center bg-gold">
-                    <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(198,151,75,0.6)"; e.currentTarget.style.boxShadow = "none"; }}>
+                  <span>Selected Work</span>
+                  <span className="w-9 h-9 rounded-full flex items-center justify-center bg-black/90">
+                    <svg className="w-4 h-4 text-[#f2e6ca]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                   </span>
                 </a>
                 <a href="/sidra-cv.html" target="_blank" rel="noreferrer" className={`flex items-center gap-2 text-sm font-light tracking-[0.07em] transition-colors duration-300 ${isDark ? "text-white/40 hover:text-white/80" : "text-black/50 hover:text-black/80"}`}>
-                  <span>Download CV</span>
+                  <span>Resume</span>
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
                 </a>
               </div>
@@ -230,10 +232,10 @@ const Hero = () => {
       </div>
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-20">
-        <div className="w-6 h-10 rounded-full flex items-start justify-center pt-2" style={{ border: isDark ? "1.5px solid rgba(255,255,255,0.12)" : "1.5px solid rgba(0,0,0,0.2)" }}>
-          <div className="w-1 h-2 rounded-full animate-bounce" style={{ background: "rgba(207,163,85,0.5)" }} />
+        <div className="w-6 h-10 rounded-full flex items-start justify-center pt-2" style={{ border: isDark ? "1.5px solid rgba(255,255,255,0.24)" : "1.5px solid rgba(0,0,0,0.35)", background: isDark ? "rgba(8,8,8,0.32)" : "rgba(255,255,255,0.2)" }}>
+          <div className="w-1 h-2 rounded-full animate-bounce" style={{ background: "rgba(198,151,75,0.82)" }} />
         </div>
-        <span className={`text-[9px] tracking-[0.38em] uppercase font-light ${isDark ? "text-white/20" : "text-black/35"}`}>Scroll Down</span>
+        <span className={`text-[9px] tracking-[0.38em] uppercase font-medium ${isDark ? "text-white/50" : "text-black/60"}`}>Scroll</span>
       </div>
     </section>
   );

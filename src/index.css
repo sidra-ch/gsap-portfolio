@@ -1,12 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #e5e5e0;
-  --color-DarkLava: #393632;
-  --color-SageGray: #8b8b73;
-  --color-gold: #cfa355;
-  --font-amiamie: "Segoe UI", "Trebuchet MS", sans-serif;
-  --font-amiamie-round: "Segoe UI", "Trebuchet MS", sans-serif;
+  --color-primary: #e7e4db;
+  --color-DarkLava: #2f2d29;
+  --color-SageGray: #7b8173;
+  --color-gold: #c6974b;
+  --color-cyanAccent: #6f95a0;
+  --font-amiamie: "Manrope", sans-serif;
+  --font-amiamie-round: "Manrope", sans-serif;
+  --font-display: "Bebas Neue", sans-serif;
 
   --animate-marquee: marquee 40s infinite linear;
   @keyframes marquee {
@@ -31,7 +34,7 @@
 }
 
 body {
-  background: #e5e5e0;
+  background: #e7e4db;
   color: black;
   /* overflow-x hidden on html instead of body — body overflow:hidden breaks Lenis on some browsers */
   font-family: var(--font-amiamie);
@@ -44,8 +47,8 @@ html {
 
 .dark body,
 html.dark body {
-  background: #0a0a0a;
-  color: #e5e5e0;
+  background: #0d0d0b;
+  color: #ece8dd;
 }
 
 /* Hide default cursor on desktop when custom cursor active */
@@ -82,4 +85,68 @@ html.dark body {
 
 @utility contact-text-responsive {
   @apply text-[42px] sm:text-[52px] md:text-[62px] lg:text-[100px];
+}
+
+@utility cinematic-title {
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+@utility cinematic-caption {
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+@keyframes cinematic-sweep {
+  0% {
+    transform: translateX(-15%) rotate(14deg);
+  }
+  100% {
+    transform: translateX(25%) rotate(14deg);
+  }
+}
+
+@keyframes cinematic-grain {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-1%, 1%);
+  }
+  50% {
+    transform: translate(1%, -1%);
+  }
+  75% {
+    transform: translate(-1%, -1%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.cinematic-surface {
+  position: relative;
+  isolation: isolate;
+}
+
+.cinematic-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(160deg, rgba(18, 18, 16, 0.08) 0%, rgba(198, 151, 75, 0.07) 52%, rgba(111, 149, 160, 0.07) 100%);
+}
+
+.cinematic-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.07;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+  background-size: 4px 4px;
 }

@@ -64,15 +64,16 @@ const Navbar = () => {
       <header
         className="fixed top-0 left-0 right-0 z-[55] flex items-center justify-between px-8 sm:px-10 h-16 sm:h-20 transition-all duration-500"
         style={{
-          background: scrolled ? (isDark ? "rgba(8,8,8,0.92)" : "rgba(229,229,224,0.9)") : "transparent",
-          backdropFilter: scrolled ? "blur(16px)" : "none",
-          borderBottom: scrolled ? (isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid rgba(0,0,0,0.08)") : "none",
+          background: scrolled ? (isDark ? "rgba(10,10,8,0.9)" : "rgba(231,228,219,0.88)") : "transparent",
+          backdropFilter: scrolled ? "blur(18px)" : "none",
+          borderBottom: scrolled ? (isDark ? "1px solid rgba(198,151,75,0.24)" : "1px solid rgba(80,64,40,0.14)") : "none",
+          boxShadow: scrolled ? "0 12px 40px rgba(0,0,0,0.14)" : "none",
         }}
       >
         <Link to="home" smooth duration={1500} className="cursor-pointer select-none">
-          <div className="font-black leading-none">
-            <div className={`text-xl sm:text-2xl tracking-tight ${isDark ? "text-white" : "text-black"}`}>CH.</div>
-            <div className="text-xl sm:text-2xl tracking-tight text-gold">SIDRA</div>
+          <div className="leading-none cinematic-title">
+            <div className={`text-2xl sm:text-3xl tracking-[0.05em] ${isDark ? "text-white" : "text-black"}`}>CH.</div>
+            <div className="text-2xl sm:text-3xl tracking-[0.05em] text-gold">SIDRA</div>
           </div>
         </Link>
 
@@ -86,7 +87,7 @@ const Navbar = () => {
               spy
               activeClass="!text-gold"
               offset={-80}
-              className={`relative text-[11px] tracking-[0.12em] uppercase cursor-pointer transition-colors duration-300 ${isDark ? "text-white/50 hover:text-white" : "text-black/50 hover:text-black"}`}
+              className={`relative text-[11px] tracking-[0.18em] uppercase cursor-pointer transition-colors duration-300 ${isDark ? "text-white/50 hover:text-white" : "text-black/50 hover:text-black"}`}
             >
               {label}
             </Link>
@@ -105,13 +106,13 @@ const Navbar = () => {
 
       <nav
         ref={navRef}
-        className={`fixed z-50 flex flex-col justify-between w-full h-full px-10 py-28 gap-y-10 md:w-1/2 md:left-1/2 ${isDark ? "bg-[#0a0a0a] border-l border-white/5" : "bg-[#f6f4ee] border-l border-black/10"}`}
+        className={`fixed z-50 flex flex-col justify-between w-full h-full px-10 py-28 gap-y-10 md:w-1/2 md:left-1/2 ${isDark ? "bg-[#0f0f0d] border-l border-gold/20" : "bg-[#f2eee3] border-l border-black/10"}`}
       >
-        <div className="flex flex-col gap-y-1 font-black uppercase">
+        <div className="flex flex-col gap-y-3 sm:gap-y-4 uppercase cinematic-title">
           {MENU_LINKS.map((section, index) => (
             <div key={index} ref={(el) => (linksRef.current[index] = el)}>
               <Link
-                className={`text-4xl sm:text-5xl lg:text-6xl transition-all duration-300 cursor-pointer hover:text-gold hover:translate-x-3 inline-block ${isDark ? "text-white/80" : "text-black/80"}`}
+                className={`text-4xl sm:text-5xl lg:text-6xl leading-[1.08] transition-all duration-300 cursor-pointer hover:text-gold hover:translate-x-3 inline-block ${isDark ? "text-white/80" : "text-black/80"}`}
                 to={section.to}
                 smooth
                 offset={-80}

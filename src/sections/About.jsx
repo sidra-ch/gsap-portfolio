@@ -78,13 +78,13 @@ Real products take priority over isolated features — turning concepts into fun
       {/* Stats row */}
       <div
         ref={statsRef}
-        className="grid grid-cols-2 md:grid-cols-4 gap-px border-t border-b border-black/8 dark:border-white/8 mx-10 mb-16"
+        className="grid grid-cols-2 md:grid-cols-4 gap-px border-t border-b border-black/8 dark:border-white/8 mx-10 mt-8 md:mt-10 mb-18"
       >
         {stats.map((stat, i) => (
           <div
             key={stat.label}
             ref={(el) => (statItemRefs.current[i] = el)}
-            className="flex flex-col items-start gap-1 py-8 px-6 first:pl-0"
+            className="flex flex-col items-center text-center gap-1 py-9 px-6"
           >
             <Icon icon={stat.icon} className="w-4 h-4 text-gold mb-1" />
             <span className="text-3xl font-black text-black dark:text-white">{stat.value}</span>
@@ -96,7 +96,7 @@ Real products take priority over isolated features — turning concepts into fun
       </div>
 
       {/* Main content */}
-      <div className="flex flex-col items-start justify-between gap-16 px-10 pb-16 lg:flex-row">
+      <div className="flex flex-col items-start justify-between gap-14 lg:gap-16 px-10 pb-20 lg:pb-24 lg:flex-row">
         {/* Image */}
         <div className="w-full lg:w-2/5 flex-shrink-0">
           <div className="overflow-hidden rounded-3xl">
@@ -113,7 +113,7 @@ Real products take priority over isolated features — turning concepts into fun
         <div className="flex flex-col gap-10 w-full lg:w-3/5">
           <AnimatedTextLines
             text={aboutText}
-            className="text-xl font-light tracking-wide md:text-2xl lg:text-3xl text-black/60 dark:text-white/60"
+            className="text-xl font-light tracking-wide leading-relaxed md:text-2xl lg:text-3xl text-black/60 dark:text-white/60"
           />
 
           {/* Outside dev highlights */}

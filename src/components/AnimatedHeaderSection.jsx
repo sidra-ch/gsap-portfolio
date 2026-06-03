@@ -8,6 +8,7 @@ const AnimatedHeaderSection = ({
   title,
   text,
   textColor,
+  textAlign = "end",
   withScrollTrigger = false,
 }) => {
   const contextRef = useRef(null);
@@ -38,6 +39,9 @@ const AnimatedHeaderSection = ({
       "<+0.2"
     );
   }, []);
+  const textAlignmentClass = textAlign === "center" ? "text-center" : textAlign === "start" ? "text-start" : "text-end";
+  const textWrapperClass = textAlign === "center" ? "max-w-5xl mx-auto" : "";
+
   return (
     <div ref={contextRef}>
       <div style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}>
@@ -63,10 +67,10 @@ const AnimatedHeaderSection = ({
       </div>
       <div className={`relative px-10 ${textColor}`}>
         <div className="absolute inset-x-0 border-t-2" />
-        <div className="py-12 sm:py-16 text-end">
+        <div className={`py-12 sm:py-16 ${textAlignmentClass}`}>
           <AnimatedTextLines
             text={text}
-            className={`font-light uppercase value-text-responsive ${textColor}`}
+            className={`font-light uppercase value-text-responsive ${textColor} ${textWrapperClass}`}
           />
         </div>
       </div>

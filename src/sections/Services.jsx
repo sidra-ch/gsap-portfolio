@@ -17,7 +17,7 @@ const Services = () => {
     not headaches.`;
 
   const serviceRefs = useRef([]);
-  const isDesktop = useMediaQuery({ minWidth: 768 });
+  const isDesktopSticky = useMediaQuery({ minWidth: 1024 });
 
   useGSAP(() => {
     // Fade-in only — no y:200 which fights sticky
@@ -49,16 +49,16 @@ const Services = () => {
       {/* Sticky card stack */}
       <div>
         {servicesData.map((service, index) => {
-          const topOffset = isDesktop
+          const topOffset = isDesktopSticky
             ? `calc(10vh + ${index * CARD_OFFSET}px)`
-            : "0px";
+            : "auto";
 
           return (
             <div
               key={index}
               ref={(el) => (serviceRefs.current[index] = el)}
-              className="sticky px-10 pt-6 pb-12 text-black dark:text-white bg-white dark:bg-black border-t-2 border-black/20 dark:border-white/30"
-              style={{ top: topOffset, willChange: "transform" }}
+              className={`${isDesktopSticky ? "sticky" : "relative"} px-10 pt-6 pb-12 text-black dark:text-white bg-white dark:bg-black border-t-2 border-black/20 dark:border-white/30`}
+              style={{ top: topOffset }}
             >
               <div className="flex items-start justify-between gap-4 font-light">
                 <div className="flex flex-col gap-6 w-full">
@@ -97,7 +97,9 @@ const Services = () => {
       </div>
 
       {/* Spacer so the last card scrolls fully off before next section */}
-      <div style={{ height: `${(servicesData.length - 1) * CARD_OFFSET}px` }} />
+      {isDesktopSticky && (
+        <div style={{ height: `${(servicesData.length - 1) * CARD_OFFSET}px` }} />
+      )}
     </section>
   );
 };

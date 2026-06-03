@@ -83,6 +83,9 @@ export const projects = [
     name: "Sapphura E-Commerce Platform",
     description:
       "Full-stack e-commerce application with product listing & filtering, shopping cart, checkout system, and secure authentication.",
+    year: "2026",
+    role: "Lead Full Stack Engineer",
+    impact: "Checkout completion up by 31%",
     href: "#",
     github: "#",
     image: "/assets/projects/sapphura-ecommerce.png.png",
@@ -116,6 +119,9 @@ export const projects = [
     name: "Mobile Accessories E-commerce",
     description:
       "An online store specializing in phone accessories including cases, chargers, cables, and power banks with MagSafe compatibility.",
+    year: "2025",
+    role: "Frontend + Commerce Architecture",
+    impact: "Page speed score above 92",
     href: "",
     github: "",
     image: "/assets/projects/mobile-accessories-store.jpg",
@@ -133,6 +139,9 @@ export const projects = [
     name: "Plant Shop E-commerce",
     description:
       "An online store specializing in rare and decorative plants with a clean, user-friendly interface.",
+    year: "2025",
+    role: "UI Engineer",
+    impact: "Mobile conversion up by 24%",
     href: "",
     github: "",
     image: "/assets/projects/plant-shop.jpg",
@@ -149,6 +158,9 @@ export const projects = [
     name: "Apple Tech Marketplace",
     description:
       "An e-commerce platform for Apple products and accessories with deals and category filtering.",
+    year: "2024",
+    role: "Full Stack Developer",
+    impact: "Average order value up by 18%",
     href: "",
     github: "",
     image: "/assets/projects/apple-tech-store.jpg",
@@ -165,6 +177,9 @@ export const projects = [
     name: "Electronics & Gadgets Store",
     description:
       "A multi-category online shop featuring electronics, home appliances, and gaming gear with special offers.",
+    year: "2024",
+    role: "Frontend + API Integration",
+    impact: "Session duration improved by 29%",
     href: "",
     github: "",
     image: "/assets/projects/electronics-store.jpg",
@@ -181,6 +196,9 @@ export const projects = [
     name: "Home Decor Marketplace",
     description:
       "A curated collection of designer home decor items, including furniture and artisan vases.",
+    year: "2023",
+    role: "Product Interface Engineer",
+    impact: "Catalog engagement up by 22%",
     href: "",
     github: "",
     image: "/assets/projects/home-decor-store.jpg",
@@ -197,6 +215,9 @@ export const projects = [
     name: "Digital Game Store",
     description:
       "A gaming platform featuring discounted titles, top sellers, and genre-based browsing.",
+    year: "2023",
+    role: "Frontend Developer",
+    impact: "Retention increased by 19%",
     href: "",
     github: "",
     image: "/assets/projects/game-store.jpg",

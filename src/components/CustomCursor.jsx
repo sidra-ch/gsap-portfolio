@@ -25,13 +25,13 @@ const CustomCursor = () => {
     };
 
     const onEnterInteractive = () => {
-      gsap.to(cursor, { scale: 2, opacity: 0.5, duration: 0.3 });
-      gsap.to(dot, { scale: 0, duration: 0.3 });
+      gsap.to(cursor, { scale: 2.2, opacity: 0.65, duration: 0.28, borderColor: "rgba(198,151,75,0.9)", boxShadow: "0 0 24px rgba(198,151,75,0.45)" });
+      gsap.to(dot, { scale: 0.2, duration: 0.28, backgroundColor: "#f2d29b" });
     };
 
     const onLeaveInteractive = () => {
-      gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.3 });
-      gsap.to(dot, { scale: 1, duration: 0.3 });
+      gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.3, borderColor: "rgba(198,151,75,0.5)", boxShadow: "none" });
+      gsap.to(dot, { scale: 1, duration: 0.3, backgroundColor: "#c6974b" });
     };
 
     document.addEventListener("mousemove", onMove);
