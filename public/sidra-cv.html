@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sidra Chaudhary — Full Stack Engineer & AI Automation Specialist</title>
+  <title>Sidra Chaudhary — Full Stack Developer | Next.js | MERN | PostgreSQL | AI-Powered Web Applications</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -112,6 +112,15 @@
       color: var(--muted);
       font-weight: 400;
       max-width: 520px;
+    }
+
+    .headline {
+      margin-top: 8px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      font-weight: 600;
     }
 
     .contact-row {
@@ -249,6 +258,19 @@
       line-height: 1.65;
     }
 
+    .tl-points {
+      margin-top: 8px;
+      padding-left: 18px;
+      display: grid;
+      gap: 5px;
+    }
+
+    .tl-points li {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
     /* ── Projects ── */
     .project-grid {
       display: grid;
@@ -288,6 +310,52 @@
       display: flex;
       flex-wrap: wrap;
       gap: 5px;
+    }
+
+    .project-links {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .project-link {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(79,142,247,0.4);
+      padding-bottom: 1px;
+    }
+
+    .project-link:hover {
+      color: #8cb5ff;
+      border-color: rgba(140,181,255,0.65);
+    }
+
+    .project-link.muted {
+      color: var(--dim);
+      border-color: rgba(122,143,173,0.35);
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .metric-line {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #c6d8ff;
+      letter-spacing: 0.02em;
+    }
+
+    .project-meta-title {
+      margin-top: 9px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 700;
     }
 
     .tag {
@@ -382,7 +450,8 @@
           Available for opportunities
         </div>
         <h1 class="name">Sidra Chaudhary</h1>
-        <p class="tagline">Full Stack Engineer (Next.js/MERN) and AI Automation Specialist building secure, scalable, and high-performance SaaS systems.</p>
+        <p class="headline">Full Stack Developer | Next.js, React, Node.js, PostgreSQL &amp; AI-Powered Applications</p>
+        <p class="tagline">I build scalable SaaS platforms, modern web applications, eCommerce systems, REST APIs, and AI-powered solutions with a strong focus on performance, security, and user experience.</p>
         <div class="contact-row">
           <a class="contact-pill" href="mailto:ms.sidrachaudhary@gmail.com">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -409,33 +478,46 @@
         <!-- Summary -->
         <h2 class="sec-title">Profile</h2>
         <p class="summary-text">
-          Full Stack Engineer with experience delivering production SaaS platforms using Next.js,
-          MERN, PostgreSQL, MongoDB, Stripe, and Cloudinary. Builds AI automation workflows and
-          LLM-integrated features with a focus on performance, security, and measurable business impact.
+          Full Stack Developer with hands-on experience building production SaaS systems and web applications using Next.js, React, Node.js, Express.js, PostgreSQL, and MongoDB. Developed secure REST APIs, real-time features with Socket.IO, and AI integrations for operational workflows. Focused on cloud deployment, scalable architecture, performance optimization, and maintainable code quality.
         </p>
 
         <!-- Experience -->
         <h2 class="sec-title">Experience</h2>
         <div class="timeline">
           <div class="tl-item">
-            <div class="tl-role">AI Engineer</div>
+            <div class="tl-role">AI Engineer (Freelance &amp; Independent Projects)</div>
             <span class="tl-company">Remote · Contract</span>
             <div class="tl-date">2025 — Present</div>
-            <p class="tl-desc">Designing and deploying AI automation workflows, integrating LLM APIs into production backends, and optimizing inference pipelines for high-throughput, low-latency performance.</p>
+            <p class="tl-desc">Designed and deployed AI automation workflows for production web applications.</p>
+            <ul class="tl-points">
+              <li>Integrated OpenAI and LLM APIs into backend services to automate support and content operations.</li>
+              <li>Implemented API orchestration and prompt pipelines that improved response consistency and reduced repetitive workload.</li>
+              <li>Optimized execution flow for lower latency and stable performance under growing usage.</li>
+            </ul>
           </div>
 
           <div class="tl-item">
             <div class="tl-role">Full Stack Developer</div>
             <span class="tl-company">PNY Group</span>
             <div class="tl-date">2024 — 2025</div>
-            <p class="tl-desc">Architected and shipped MERN & PostgreSQL applications featuring JWT-secured REST APIs, role-based access control, Stripe payment flows, and real-time Socket.IO communications.</p>
+            <p class="tl-desc">Architected and shipped full-stack SaaS and web applications using MERN and PostgreSQL.</p>
+            <ul class="tl-points">
+              <li>Developed JWT-secured REST APIs, role-based access control, and payment modules with Stripe integration.</li>
+              <li>Implemented scalable backend modules and real-time Socket.IO features for collaboration and user engagement.</li>
+              <li>Optimized database queries and frontend rendering paths to improve loading speed and operational reliability.</li>
+            </ul>
           </div>
 
           <div class="tl-item">
-            <div class="tl-role">Cybersecurity Engineer</div>
-            <span class="tl-company">Advanced Security Operations</span>
+            <div class="tl-role">Application Security (Project-Based)</div>
+            <span class="tl-company">Across client and personal products</span>
             <div class="tl-date">2023 — Present</div>
-            <p class="tl-desc">Conducting end-to-end threat modeling, vulnerability assessments, and penetration testing. Enforcing secure architecture hardening, OWASP compliance, and proactive incident response readiness across distributed systems.</p>
+            <p class="tl-desc">Implemented application security controls within full-stack delivery workflows.</p>
+            <ul class="tl-points">
+              <li>Applied OWASP-aligned hardening patterns in authentication, API access, and request validation layers.</li>
+              <li>Conducted vulnerability reviews and secure architecture checks during feature delivery cycles.</li>
+              <li>Improved security posture while maintaining development velocity and release quality.</li>
+            </ul>
           </div>
         </div>
 
@@ -445,38 +527,77 @@
           <div class="project-card">
             <h3>Sapphura E-Commerce (Flagship)</h3>
             <p>Built a commerce platform with 600+ products, Stripe checkout, PostgreSQL (NeonDB), Cloudinary optimization, JWT auth, and admin operations dashboard.</p>
+            <p class="project-meta-title">Key Features</p>
+            <p>Product Management, Authentication, Admin Dashboard, Order Management, Stripe Integration, Inventory Tracking.</p>
+            <p class="project-meta-title">Tech Stack</p>
             <div class="tag-row">
               <span class="tag">Next.js</span>
+              <span class="tag">MongoDB</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">JWT</span>
+              <span class="tag">Cloudinary</span>
               <span class="tag">PostgreSQL</span>
               <span class="tag">Stripe</span>
-              <span class="tag">Lighthouse 95+</span>
+            </div>
+            <p class="metric-line">Key Metrics: Checkout completion +31% · 600+ products · Lighthouse 95+</p>
+            <div class="project-links">
+              <a class="project-link muted" href="#">Live Demo: Available on request</a>
+              <a class="project-link muted" href="#">GitHub: Available on request</a>
             </div>
           </div>
           <div class="project-card">
             <h3>Social Media App</h3>
             <p>Real-time social platform featuring feeds, follows, likes, and Socket.IO messaging for active user engagement.</p>
+            <p class="project-meta-title">Key Features</p>
+            <p>User Profiles, Content Feed, Likes and Comments, Real-Time Messaging, Notification Flows.</p>
+            <p class="project-meta-title">Tech Stack</p>
             <div class="tag-row">
               <span class="tag">React</span>
               <span class="tag">Node.js</span>
+              <span class="tag">Express.js</span>
+              <span class="tag">MongoDB</span>
               <span class="tag">Socket.IO</span>
+            </div>
+            <p class="metric-line">Key Metrics: Retention +19% · Real-time engagement workflows</p>
+            <div class="project-links">
+              <a class="project-link muted" href="#">Live Demo: Available on request</a>
+              <a class="project-link muted" href="#">GitHub: Available on request</a>
             </div>
           </div>
           <div class="project-card">
             <h3>Commerce Admin Suite</h3>
             <p>Implemented end-to-end order and inventory workflows with analytics-driven admin controls.</p>
+            <p class="project-meta-title">Key Features</p>
+            <p>Role-Based Access, Inventory Management, Order Tracking, Revenue Reporting, Admin Controls.</p>
+            <p class="project-meta-title">Tech Stack</p>
             <div class="tag-row">
               <span class="tag">MERN</span>
               <span class="tag">MongoDB</span>
               <span class="tag">JWT</span>
+              <span class="tag">REST APIs</span>
+            </div>
+            <p class="metric-line">Key Metrics: Order operations efficiency improved · Faster inventory updates</p>
+            <div class="project-links">
+              <a class="project-link muted" href="#">Live Demo: Available on request</a>
+              <a class="project-link muted" href="#">GitHub: Available on request</a>
             </div>
           </div>
           <div class="project-card">
             <h3>AI Automation Suite</h3>
             <p>Automated repetitive operational workflows using LLM integrations, prompt design, and webhook orchestration.</p>
+            <p class="project-meta-title">Key Features</p>
+            <p>Prompt Templates, Workflow Automation, Webhook Triggers, API Integrations, Monitoring Pipelines.</p>
+            <p class="project-meta-title">Tech Stack</p>
             <div class="tag-row">
               <span class="tag">OpenAI</span>
               <span class="tag">Python</span>
               <span class="tag">REST</span>
+              <span class="tag">Node.js</span>
+            </div>
+            <p class="metric-line">Key Metrics: Manual task load reduced · Faster support workflows</p>
+            <div class="project-links">
+              <a class="project-link muted" href="#">Live Demo: Available on request</a>
+              <a class="project-link muted" href="#">GitHub: Available on request</a>
             </div>
           </div>
         </div>
@@ -515,9 +636,20 @@
           <div class="skill-chips">
             <span class="skill-chip">PostgreSQL</span>
             <span class="skill-chip">MongoDB</span>
-            <span class="skill-chip">Firebase</span>
+            <span class="skill-chip">Firebase (Optional)</span>
             <span class="skill-chip">Vercel</span>
             <span class="skill-chip">Cloudinary</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-label">DevOps &amp; Tools</p>
+          <div class="skill-chips">
+            <span class="skill-chip">Git</span>
+            <span class="skill-chip">GitHub</span>
+            <span class="skill-chip">Docker</span>
+            <span class="skill-chip">CI/CD</span>
+            <span class="skill-chip">GitHub Actions</span>
           </div>
         </div>
 
