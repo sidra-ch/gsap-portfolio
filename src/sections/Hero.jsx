@@ -23,9 +23,10 @@ const EmailIcon = () => (
   </svg>
 );
 
-const AIBackground = ({ isDark }) => {
+const AIBackground = ({ isDark, reducedMotion }) => {
   const canvasRef = useRef(null);
   useEffect(() => {
+    if (reducedMotion) return undefined;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -69,7 +70,7 @@ const AIBackground = ({ isDark }) => {
   return <canvas ref={canvasRef} className={`absolute inset-0 pointer-events-none z-0 ${isDark ? "opacity-50" : "opacity-25"}`} />;
 };
 
-const ROLES = ["Cloud + Full-Stack", "Product Systems", "Execution Focus", "Outcome Driven"];
+const ROLES = ["Product-Grade Web Systems", "AI Automation Architecture", "LLM-Backed User Journeys", "Cloud Deployment Discipline"];
 const useTyping = () => {
   const [idx, setIdx] = useState(0);
   const [text, setText] = useState("");
@@ -94,9 +95,11 @@ const Hero = () => {
   const { isDark } = useTheme();
   const typedRole = useTyping();
   const [webglSupported, setWebglSupported] = useState(true);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
   const taglineRef = useRef(null); const nameRef = useRef(null); const roleRef = useRef(null);
   const aiRef = useRef(null); const descRef = useRef(null); const ctaRef = useRef(null);
-  const socialRef = useRef(null); const planetRef = useRef(null);
+  const socialRef = useRef(null); const planetRef = useRef(null); const sectionRef = useRef(null);
 
   useEffect(() => {
     try {
@@ -104,6 +107,25 @@ const Hero = () => {
       const gl = c.getContext("webgl2") || c.getContext("webgl") || c.getContext("experimental-webgl");
       if (!gl) setWebglSupported(false);
     } catch { setWebglSupported(false); }
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onChange = () => setPrefersReducedMotion(media.matches);
+    onChange();
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    const target = sectionRef.current;
+    if (!target || !("IntersectionObserver" in window)) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsHeroVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    observer.observe(target);
+    return () => observer.disconnect();
   }, []);
 
   useGSAP(() => {
@@ -121,9 +143,11 @@ const Hero = () => {
         { x: isMobile ? -120 : -180, opacity: 0 },
         { x: 0, opacity: isDark ? 0.96 : 0.9, duration: 1.7, ease: "power3.out", delay: 0.15 }
       );
-      gsap.to(planetRef.current, { y: 18, duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.9 });
+      if (!prefersReducedMotion) {
+        gsap.to(planetRef.current, { y: 18, duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.9 });
+      }
     }
-  }, [isMobile]);
+  }, [isMobile, prefersReducedMotion]);
 
   const SOCIALS = [
     { icon: <LinkedInIcon />, href: "https://linkedin.com/in/sidra-chaudhary", label: "LinkedIn" },
@@ -132,11 +156,11 @@ const Hero = () => {
   ];
 
   return (
-    <section id="home" className="cinematic-surface cinematic-grain relative w-full min-h-screen overflow-hidden" style={{ background: isDark ? "#0d0d0b" : "#e7e4db" }}>
-      <AIBackground isDark={isDark} />
+    <section ref={sectionRef} id="home" className="cinematic-surface cinematic-grain relative w-full min-h-screen overflow-hidden" style={{ background: isDark ? "#0d0d0b" : "#e7e4db" }}>
+      <AIBackground isDark={isDark} reducedMotion={prefersReducedMotion} />
       <div className="absolute pointer-events-none z-0" style={{ top: "5%", right: "0%", width: 750, height: 750, background: isDark ? "radial-gradient(ellipse, rgba(198,151,75,0.16) 0%, transparent 65%)" : "radial-gradient(ellipse, rgba(198,151,75,0.2) 0%, transparent 65%)", filter: "blur(55px)" }} />
       <div className="absolute pointer-events-none z-0" style={{ bottom: "-12%", left: "-10%", width: 620, height: 620, background: isDark ? "radial-gradient(circle, rgba(111,149,160,0.14) 0%, transparent 62%)" : "radial-gradient(circle, rgba(111,149,160,0.2) 0%, transparent 62%)", filter: "blur(40px)" }} />
-      <div className="absolute pointer-events-none z-0 cinematic-light-sweep" style={{ top: "-20%", left: "-15%", width: "55vw", height: "140vh", background: "linear-gradient(to right, rgba(255,255,255,0), rgba(255,240,205,0.12), rgba(255,255,255,0))", filter: "blur(4px)", animation: "cinematic-sweep 8s ease-in-out infinite alternate" }} />
+      <div className="absolute pointer-events-none z-0 cinematic-light-sweep" style={{ top: "-20%", left: "-15%", width: "55vw", height: "140vh", background: "linear-gradient(to right, rgba(255,255,255,0), rgba(255,240,205,0.12), rgba(255,255,255,0))", filter: "blur(4px)", animation: prefersReducedMotion ? "none" : "cinematic-sweep 8s ease-in-out infinite alternate" }} />
 
       <div ref={socialRef} className="hidden lg:flex absolute left-5 top-1/2 -translate-y-1/2 z-30 flex-col items-center gap-4 px-2.5 py-4 rounded-full" style={{ background: isDark ? "rgba(16,16,16,0.85)" : "rgba(255,255,255,0.8)", border: isDark ? "1px solid rgba(255,255,255,0.07)" : "1px solid rgba(0,0,0,0.1)", backdropFilter: "blur(8px)" }}>
         {SOCIALS.map(({ icon, href, label }) => (
@@ -155,10 +179,10 @@ const Hero = () => {
           className="absolute inset-0 z-10 pointer-events-none"
           style={{ opacity: 0 }}
         >
-          {webglSupported && (
-            <Canvas shadows dpr={[1, 2]} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} camera={{ position: [0, 0.7, 7.2], fov: 36, near: 0.1, far: 200 }}>
+          {webglSupported && isHeroVisible && !prefersReducedMotion && (
+            <Canvas shadows dpr={isMobile ? [1, 1.4] : [1, 2]} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} camera={{ position: [0, 0.7, 7.2], fov: 36, near: 0.1, far: 200 }}>
               <Suspense fallback={null}>
-                <Stars radius={120} depth={80} count={1400} factor={3} saturation={0} fade speed={0.15} />
+                <Stars radius={120} depth={80} count={isMobile ? 760 : 1400} factor={3} saturation={0} fade speed={0.12} />
                 <ambientLight intensity={0.45} />
                 <hemisphereLight intensity={0.85} groundColor="#1f1820" color="#f7f2e8" />
                 <directionalLight position={[6, 8, 7]} intensity={2.6} castShadow color="#fff6dd" />
@@ -184,42 +208,56 @@ const Hero = () => {
           )}
         </div>
 
-        <div className="relative z-20 flex min-h-screen items-center px-8 pt-28 pb-16 sm:px-12 lg:px-16 lg:pt-0 lg:pb-0 xl:px-24">
+        <div className="relative z-20 flex min-h-screen items-center px-5 pt-24 pb-16 sm:px-8 lg:px-16 lg:pt-0 lg:pb-0 xl:px-24">
           <div className="flex w-full justify-start lg:justify-end">
             <div className="w-full max-w-[560px] lg:mr-[10vw] xl:mr-[12vw]">
-              <p ref={taglineRef} className={`cinematic-caption mb-8 font-medium ${isDark ? "text-white/45" : "text-black/45"}`}>
-                Build Better, Ship Faster
+              <p ref={taglineRef} className={`cinematic-caption mb-8 font-medium ${isDark ? "text-white/70" : "text-black/70"}`}>
+                Engineering digital products with measurable business outcomes
               </p>
               <div ref={nameRef} className="mb-5">
-                <span className={`cinematic-title block leading-[0.87] ${isDark ? "text-white" : "text-black"}`} style={{ fontSize: "clamp(68px, 10.2vw, 126px)" }}>CH. SIDRA</span>
-                <span className={`cinematic-title block mt-1 leading-[0.95] ${isDark ? "text-white/70" : "text-black/65"}`} style={{ fontSize: "clamp(26px, 4.2vw, 54px)", letterSpacing: "0.14em" }}>CHAUDHARY</span>
+                <span className={`cinematic-title block leading-[0.87] ${isDark ? "text-white" : "text-black"}`} style={{ fontSize: "clamp(68px, 10.2vw, 126px)", textShadow: isDark ? "0 2px 18px rgba(0,0,0,0.42)" : "0 1px 10px rgba(255,255,255,0.25)" }}>CH. SIDRA</span>
+                <span className={`cinematic-title block mt-1 leading-[0.95] ${isDark ? "text-white/88" : "text-black/82"}`} style={{ fontSize: "clamp(26px, 4.2vw, 54px)", letterSpacing: "0.14em", textShadow: isDark ? "0 2px 14px rgba(0,0,0,0.36)" : "0 1px 8px rgba(255,255,255,0.2)" }}>CHAUDHARY</span>
               </div>
-              <div ref={roleRef} className="flex items-center gap-3 mb-4">
-                <span className={`text-[11px] sm:text-xs font-semibold tracking-[0.26em] uppercase ${isDark ? "text-white" : "text-black/80"}`}>Cloud + Full-Stack</span>
+              <div ref={roleRef} className="flex flex-wrap items-center gap-2.5 mb-4">
+                <span className={`text-[10px] sm:text-xs font-semibold tracking-[0.18em] sm:tracking-[0.26em] uppercase ${isDark ? "text-white" : "text-black/90"}`}>Product Systems</span>
                 <span className="text-gold text-base opacity-80">|</span>
-                <span className={`text-[11px] sm:text-xs font-light tracking-[0.26em] uppercase ${isDark ? "text-white/50" : "text-black/50"}`}>Product Delivery</span>
+                <span className={`text-[10px] sm:text-xs font-light tracking-[0.18em] sm:tracking-[0.26em] uppercase ${isDark ? "text-white/72" : "text-black/68"}`}>AI Operations</span>
               </div>
-              <div ref={aiRef} className="flex items-center gap-2.5 mb-8">
+              <div ref={aiRef} className="flex flex-wrap items-center gap-2.5 mb-8">
                 <span className="text-[9px] tracking-[0.28em] uppercase px-2 py-[3px] font-medium rounded-sm" style={{ color: "#cfa355", border: "1px solid rgba(207,163,85,0.25)", background: "rgba(207,163,85,0.06)" }}>AI</span>
-                <span className={`text-sm font-light tracking-wide min-w-[180px] ${isDark ? "text-white/45" : "text-black/55"}`}>{typedRole}</span>
+                <span className={`text-sm font-light tracking-wide min-w-0 sm:min-w-[180px] ${isDark ? "text-white/78" : "text-black/78"}`}>{typedRole}</span>
                 <span className="text-gold animate-pulse font-thin text-lg leading-none">|</span>
               </div>
-              <p ref={descRef} className={`text-sm sm:text-[15px] leading-relaxed max-w-[460px] mb-10 font-light ${isDark ? "text-white/55" : "text-black/65"}`}>
-                I turn product ideas into production-ready software with measurable outcomes.
+              <p ref={descRef} className={`text-sm sm:text-[15px] leading-relaxed max-w-[480px] mb-10 font-light ${isDark ? "text-white/78" : "text-black/80"}`}>
+                I design and ship full-stack platforms where speed, clarity, and automation work together, from conversion-first interfaces to reliable backend operations.
               </p>
-              <div ref={ctaRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-10 lg:mb-0">
-                <a href="#work" className={`flex items-center gap-3 pl-6 pr-2 py-2 rounded-full text-sm font-medium tracking-[0.09em] transition-all duration-300 ${isDark ? "text-black" : "text-black"}`} style={{ border: "1.5px solid rgba(198,151,75,0.6)", background: "linear-gradient(120deg, rgba(255,229,179,0.96), rgba(198,151,75,0.95))" }}
+              <div ref={ctaRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-10 lg:mb-0 w-full sm:w-auto">
+                <a href="#work" className={`flex items-center justify-between gap-3 pl-5 pr-2 py-2 rounded-full text-sm font-medium tracking-[0.06em] sm:tracking-[0.09em] transition-all duration-300 w-full sm:w-auto ${isDark ? "text-black" : "text-black"}`} style={{ border: "1.5px solid rgba(198,151,75,0.6)", background: "linear-gradient(120deg, rgba(255,229,179,0.96), rgba(198,151,75,0.95))" }}
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(207,163,85,0.5)"; e.currentTarget.style.boxShadow = "0 0 20px rgba(207,163,85,0.12)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(198,151,75,0.6)"; e.currentTarget.style.boxShadow = "none"; }}>
-                  <span>Selected Work</span>
+                  <span>Explore Selected Work</span>
                   <span className="w-9 h-9 rounded-full flex items-center justify-center bg-black/90">
                     <svg className="w-4 h-4 text-[#f2e6ca]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                   </span>
                 </a>
-                <a href="/sidra-cv.html" target="_blank" rel="noreferrer" className={`flex items-center gap-2 text-sm font-light tracking-[0.07em] transition-colors duration-300 ${isDark ? "text-white/40 hover:text-white/80" : "text-black/50 hover:text-black/80"}`}>
-                  <span>Resume</span>
+                <a href="/sidra-cv.html" target="_blank" rel="noreferrer" className={`flex items-center gap-2 text-sm font-light tracking-[0.07em] transition-colors duration-300 ${isDark ? "text-white/72 hover:text-white" : "text-black/72 hover:text-black"}`}>
+                  <span>Professional Profile</span>
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
                 </a>
+              </div>
+              <div className="grid grid-cols-1 gap-2.5 min-[430px]:grid-cols-2 sm:grid-cols-4 mt-2">
+                <div className={`px-3 py-2 rounded-md border text-[10px] tracking-[0.14em] sm:tracking-[0.18em] uppercase ${isDark ? "border-white/12 text-white/60" : "border-black/12 text-black/55"}`}>
+                  Systems Built Since 2023
+                </div>
+                <div className={`px-3 py-2 rounded-md border text-[10px] tracking-[0.14em] sm:tracking-[0.18em] uppercase ${isDark ? "border-white/12 text-white/60" : "border-black/12 text-black/55"}`}>
+                  20+ Production Projects
+                </div>
+                <div className={`px-3 py-2 rounded-md border text-[10px] tracking-[0.14em] sm:tracking-[0.18em] uppercase ${isDark ? "border-white/12 text-white/60" : "border-black/12 text-black/55"}`}>
+                  95+ Lighthouse Benchmarks
+                </div>
+                <div className={`px-3 py-2 rounded-md border text-[10px] tracking-[0.14em] sm:tracking-[0.18em] uppercase ${isDark ? "border-white/12 text-white/60" : "border-black/12 text-black/55"}`}>
+                  Async Team Ready
+                </div>
               </div>
               <div className="flex lg:hidden items-center gap-6">
                 {SOCIALS.map(({ icon, href, label }) => (
@@ -231,7 +269,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-20">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 pointer-events-none z-20">
         <div className="w-6 h-10 rounded-full flex items-start justify-center pt-2" style={{ border: isDark ? "1.5px solid rgba(255,255,255,0.24)" : "1.5px solid rgba(0,0,0,0.35)", background: isDark ? "rgba(8,8,8,0.32)" : "rgba(255,255,255,0.2)" }}>
           <div className="w-1 h-2 rounded-full animate-bounce" style={{ background: "rgba(198,151,75,0.82)" }} />
         </div>

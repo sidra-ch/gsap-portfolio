@@ -48,6 +48,13 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const toggleMenu = () => {
     if (isOpen) {
       tl.current.reverse();
@@ -62,7 +69,7 @@ const Navbar = () => {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-[55] flex items-center justify-between px-8 sm:px-10 h-16 sm:h-20 transition-all duration-500"
+        className="fixed top-0 left-0 right-0 z-[55] flex items-center justify-between px-5 sm:px-8 lg:px-10 h-16 sm:h-20 transition-all duration-500"
         style={{
           background: scrolled ? (isDark ? "rgba(10,10,8,0.9)" : "rgba(231,228,219,0.88)") : "transparent",
           backdropFilter: scrolled ? "blur(18px)" : "none",
@@ -106,13 +113,13 @@ const Navbar = () => {
 
       <nav
         ref={navRef}
-        className={`fixed z-50 flex flex-col justify-between w-full h-full px-10 py-28 gap-y-10 md:w-1/2 md:left-1/2 ${isDark ? "bg-[#0f0f0d] border-l border-gold/20" : "bg-[#f2eee3] border-l border-black/10"}`}
+        className={`fixed inset-y-0 right-0 z-50 flex flex-col justify-between w-[min(90vw,380px)] md:w-1/2 h-full px-6 sm:px-8 py-24 sm:py-28 gap-y-10 ${isDark ? "bg-[#0f0f0d] border-l border-gold/20" : "bg-[#f2eee3] border-l border-black/10"}`}
       >
         <div className="flex flex-col gap-y-3 sm:gap-y-4 uppercase cinematic-title">
           {MENU_LINKS.map((section, index) => (
             <div key={index} ref={(el) => (linksRef.current[index] = el)}>
               <Link
-                className={`text-4xl sm:text-5xl lg:text-6xl leading-[1.08] transition-all duration-300 cursor-pointer hover:text-gold hover:translate-x-3 inline-block ${isDark ? "text-white/80" : "text-black/80"}`}
+                className={`text-3xl sm:text-5xl lg:text-6xl leading-[1.08] transition-all duration-300 cursor-pointer hover:text-gold hover:translate-x-3 inline-block ${isDark ? "text-white/80" : "text-black/80"}`}
                 to={section.to}
                 smooth
                 offset={-80}
@@ -128,7 +135,7 @@ const Navbar = () => {
         <div ref={contactRef} className="flex flex-col flex-wrap justify-between gap-6 md:flex-row">
           <div className="font-light">
             <p className={`tracking-[0.3em] text-[10px] uppercase mb-1 ${isDark ? "text-white/30" : "text-black/40"}`}>E-mail</p>
-            <p className="text-sm tracking-widest lowercase text-gold/80">ms.sidrachaudhary@gmail.com</p>
+            <p className="text-sm tracking-[0.12em] sm:tracking-widest lowercase text-gold/80 break-all">ms.sidrachaudhary@gmail.com</p>
           </div>
           <div className="font-light">
             <p className={`tracking-[0.3em] text-[10px] uppercase mb-1 ${isDark ? "text-white/30" : "text-black/40"}`}>Social</p>

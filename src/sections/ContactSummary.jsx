@@ -6,18 +6,18 @@ import gsap from "gsap";
 const ContactSummary = () => {
   const containerRef = useRef(null);
   const items = [
-    "Innovation",
-    "Precision",
-    "Trust",
-    "Collaboration",
-    "Excellence",
+    "Clarity",
+    "Execution",
+    "Reliability",
+    "Partnership",
+    "Craft",
   ];
   const items2 = [
-    "Let\'s discuss your next project",
+    "Let\'s design your next digital product",
     "Email: ms.sidrachaudhary@gmail.com",
     "GitHub: github.com/sidra-ch",
     "LinkedIn: linkedin.com/in/sidra-chaudhary",
-    "Available for freelance and full-time opportunities",
+    "Available for freelance and long-term product teams",
   ];
 
   useGSAP(() => {
@@ -34,15 +34,15 @@ const ContactSummary = () => {
   return (
     <section
       ref={containerRef}
-      className="flex flex-col items-center justify-between py-24 gap-12 dark:text-white overflow-hidden"
+      className="flex flex-col items-center justify-between py-16 sm:py-24 gap-10 sm:gap-12 dark:text-white overflow-hidden"
     >
       <Marquee items={items} />
-      <div className="overflow-hidden font-light text-center contact-text-responsive">
+      <div className="overflow-hidden font-light text-center contact-text-responsive px-5 sm:px-0 leading-tight">
         <p>
-          “ Let’s build a <br />
-          <span className="font-normal">memorable</span> &{" "}
-          <span className="italic">inspiring</span> <br />
-          web application <span className="text-gold">together</span> “
+          “ Let’s build software that is <br />
+          <span className="font-normal">beautiful to use</span> and <br />
+          <span className="italic">serious in performance</span> <br />
+          from day one <span className="text-gold">to scale</span> “
         </p>
       </div>
       <Marquee

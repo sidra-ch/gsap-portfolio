@@ -20,21 +20,18 @@ const AnimatedHeaderSection = ({
       scrollTrigger: withScrollTrigger
         ? {
             trigger: contextRef.current,
+            start: "top 82%",
           }
         : undefined,
     });
-    tl.from(contextRef.current, {
-      y: "50vh",
-      duration: 1,
-      ease: "circ.out",
-    });
+    tl.from(contextRef.current, { opacity: 0, duration: 0.6, ease: "power2.out" });
     tl.from(
       headerRef.current,
       {
         opacity: 0,
-        y: "200",
-        duration: 1,
-        ease: "circ.out",
+        y: 60,
+        duration: 0.9,
+        ease: "power3.out",
       },
       "<+0.2"
     );
@@ -49,14 +46,12 @@ const AnimatedHeaderSection = ({
           ref={headerRef}
           className="flex flex-col justify-center gap-12 pt-16 sm:gap-16"
         >
-          <p
-            className={`text-sm font-light tracking-[0.5rem] uppercase px-10 ${textColor}`}
-          >
+          <p className={`text-[10px] sm:text-xs font-medium tracking-[0.22em] sm:tracking-[0.38em] uppercase px-5 sm:px-8 lg:px-10 ${textColor}`}>
             {subTitle}
           </p>
-          <div className="px-10">
+          <div className="px-5 sm:px-8 lg:px-10">
             <h1
-              className={`flex flex-col gap-12 uppercase banner-text-responsive sm:gap-16 md:block mb-[10px] ${textColor}`}
+              className={`cinematic-title flex flex-col gap-12 uppercase banner-text-responsive sm:gap-16 md:block mb-[10px] ${textColor}`}
             >
               {titleParts.map((part, index) => (
                 <span key={index}>{part} </span>
@@ -65,12 +60,12 @@ const AnimatedHeaderSection = ({
           </div>
         </div>
       </div>
-      <div className={`relative px-10 ${textColor}`}>
+      <div className={`relative px-5 sm:px-8 lg:px-10 ${textColor}`}>
         <div className="absolute inset-x-0 border-t-2" />
         <div className={`py-12 sm:py-16 ${textAlignmentClass}`}>
           <AnimatedTextLines
             text={text}
-            className={`font-light uppercase value-text-responsive ${textColor} ${textWrapperClass}`}
+            className={`font-light uppercase value-text-responsive tracking-[0.06em] ${textColor} ${textWrapperClass}`}
           />
         </div>
       </div>

@@ -15,9 +15,9 @@ const Works = () => {
   const [currentIndex, setCurrentIndex] = useState(null);
   const [caseStudyProject, setCaseStudyProject] = useState(null);
 
-  const text = `Featured projects that have been meticulously
-    crafted with passion to drive
-    results and impact.`;
+  const text = `Selected product work delivered for real use,
+    real teams, and measurable
+    operational or revenue impact.`;
 
   const mouse = useRef({ x: 0, y: 0 });
   const moveX = useRef(null);
@@ -112,13 +112,13 @@ const Works = () => {
         withScrollTrigger={true}
       />
       <div
-        className="relative flex flex-col gap-4 px-4 pb-8 font-light md:px-8"
+        className="relative flex flex-col gap-4 px-3 sm:px-5 pb-8 font-light md:px-8"
         onMouseMove={handleMouseMove}
       >
         {projects.map((project, index) => (
           <div
             key={project.id}
-            className="project-row relative flex flex-col gap-3 py-6 group md:gap-3 md:rounded-2xl md:border md:border-black/10 md:dark:border-white/10 md:px-4"
+            className="project-row relative flex flex-col gap-3 py-6 group border border-black/10 dark:border-white/10 rounded-2xl px-1 sm:px-2 md:gap-3 md:px-4"
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={() => handleMouseLeave(index)}
           >
@@ -131,12 +131,12 @@ const Works = () => {
             />
 
             {/* title row */}
-            <div className="flex items-center justify-between px-6 text-black dark:text-white transition-all duration-500 md:px-6 md:group-hover:px-8 md:group-hover:text-white">
-              <div className="flex items-center gap-3">
+            <div className="flex items-start justify-between gap-3 px-4 sm:px-5 md:px-6 text-black dark:text-white transition-all duration-500 md:group-hover:px-8 md:group-hover:text-white">
+              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                 <span className="text-[10px] tracking-widest text-SageGray dark:text-white/30 font-light tabular-nums hidden md:block">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <h2 className="cinematic-title lg:text-[42px] text-[30px] leading-none">
+                <h2 className="cinematic-title lg:text-[42px] text-[24px] sm:text-[30px] leading-[1.05] break-words">
                   {project.name}
                 </h2>
                 {project.featured && (
@@ -145,7 +145,7 @@ const Works = () => {
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 shrink-0">
                 {/* Action buttons - visible on hover (desktop) */}
                 <div className="items-center hidden gap-2 transition-opacity duration-300 opacity-0 md:flex md:group-hover:opacity-100">
                   {project.href && project.href !== "#" && (
@@ -184,11 +184,11 @@ const Works = () => {
               </div>
             </div>
 
-            <div className="grid items-start grid-cols-1 gap-5 px-6 md:grid-cols-[1.4fr_1fr] md:px-6 md:group-hover:px-8 transition-all duration-500">
+            <div className="grid items-start grid-cols-1 gap-5 px-4 sm:px-5 md:grid-cols-[1.4fr_1fr] md:px-6 md:group-hover:px-8 transition-all duration-500">
               <p className="max-w-3xl text-sm leading-relaxed text-black/70 dark:text-white/65 md:text-[15px] md:group-hover:text-white/80">
                 {project.description}
               </p>
-              <div className="grid grid-cols-2 gap-4 text-[10px] uppercase tracking-[0.24em]">
+              <div className="grid grid-cols-2 gap-4 text-[10px] uppercase tracking-[0.14em] sm:tracking-[0.2em] md:tracking-[0.24em]">
                 <div>
                   <p className="mb-1 text-black/40 dark:text-white/35">Year</p>
                   <p className="text-black/80 dark:text-white/80">{project.year || "2026"}</p>
@@ -204,11 +204,32 @@ const Works = () => {
               </div>
             </div>
 
+            {project.caseStudy && (
+              <div className="grid grid-cols-1 gap-3 px-4 sm:px-5 md:grid-cols-3 md:px-6 md:group-hover:px-8 transition-all duration-500">
+                <div className="p-3 rounded-lg border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]">
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-black/40 dark:text-white/35 mb-1.5">Problem</p>
+                  <p className="text-xs leading-relaxed text-black/65 dark:text-white/65">{project.caseStudy.problem}</p>
+                </div>
+                <div className="p-3 rounded-lg border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]">
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-black/40 dark:text-white/35 mb-1.5">Solution</p>
+                  <p className="text-xs leading-relaxed text-black/65 dark:text-white/65">{project.caseStudy.solution}</p>
+                </div>
+                <div className="p-3 rounded-lg border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]">
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-black/40 dark:text-white/35 mb-1.5">Results</p>
+                  <p className="text-xs leading-relaxed text-black/65 dark:text-white/65">
+                    {Array.isArray(project.caseStudy.results)
+                      ? project.caseStudy.results[0]
+                      : project.caseStudy.results}
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* divider */}
             <div className="w-full h-px bg-black/30 dark:bg-white/20" />
 
             {/* framework badges */}
-            <div className="flex flex-wrap px-6 text-xs leading-loose uppercase transition-all duration-500 md:text-sm gap-x-5 md:group-hover:px-8">
+            <div className="flex flex-wrap px-4 sm:px-5 text-xs leading-loose uppercase transition-all duration-500 md:text-sm gap-x-4 sm:gap-x-5 md:group-hover:px-8">
               {project.frameworks.map((framework) => (
                 <p
                   key={framework.id}
@@ -221,21 +242,23 @@ const Works = () => {
 
             {/* mobile: preview image + action buttons */}
             <div className="md:hidden">
-              <div className="relative flex items-center justify-center px-6 h-[360px]">
+              <div className="relative flex items-center justify-center px-4 sm:px-6 h-[260px] sm:h-[320px]">
                 <img
                   src={project.bgImage}
                   alt={`${project.name}-bg-image`}
                   loading="lazy"
+                  decoding="async"
                   className="object-cover w-full h-full rounded-md brightness-50"
                 />
                 <img
                   src={project.image}
                   alt={`${project.name}-image`}
                   loading="lazy"
-                  className="absolute bg-center px-10 rounded-xl"
+                  decoding="async"
+                  className="absolute bg-center px-6 sm:px-10 w-[82%] max-w-sm rounded-xl"
                 />
               </div>
-              <div className="flex flex-wrap gap-2 px-6 mt-3">
+              <div className="flex flex-wrap gap-2 px-4 sm:px-6 mt-3">
                 {project.href && project.href !== "#" && (
                   <a
                     href={project.href}
@@ -281,6 +304,7 @@ const Works = () => {
             <img
               src={projects[currentIndex].image}
               alt="preview"
+              decoding="async"
               className="object-cover w-full h-full"
             />
           )}

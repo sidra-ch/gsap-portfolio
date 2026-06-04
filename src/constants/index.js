@@ -1,9 +1,9 @@
 // index.js
 export const servicesData = [
   {
-    title: "FullStack Development",
+    title: "Full-Stack Engineering",
     description:
-      "Your business deserves a fast, secure, and future-proof digital foundation. I develop custom web apps with clean architecture, optimized databases, and seamless integrations—ensuring reliability at every layer.",
+      "I build production-ready web platforms with clean architecture, robust APIs, and maintainable code paths so features can evolve without breaking velocity.",
     items: [
       {
         title: "Backend Engineering",
@@ -22,7 +22,7 @@ export const servicesData = [
   {
     title: "DevOps & Cloud Solutions",
     description:
-      "Deploying software shouldn't be a gamble. I automate infrastructure, enforce security, and leverage cloud platforms (AWS/Azure) to keep your app running smoothly—24/7, at any scale.",
+      "I automate delivery pipelines and cloud operations so releases stay predictable, environments stay observable, and systems remain stable under growth.",
     items: [
       {
         title: "CI/CD Pipelines",
@@ -41,7 +41,7 @@ export const servicesData = [
   {
     title: "Security & Optimization",
     description:
-      "Slow or hacked apps destroy trust. I harden security (XSS/SQLI protection, OAuth) and optimize bottlenecks so your app stays fast, safe, and scalable as you grow.",
+      "I audit risk surfaces and performance bottlenecks, then implement practical hardening and optimization so your product remains secure and responsive at scale.",
     items: [
       {
         title: "Code Audits",
@@ -60,7 +60,7 @@ export const servicesData = [
   {
     title: "Web & Mobile Apps",
     description:
-      "A clunky interface can sink even the best ideas. I craft responsive, pixel perfect web and mobile apps (React Native/Flutter) that users love—bridging design and functionality seamlessly.",
+      "I craft responsive web and mobile experiences that feel intuitive in daily use, with interaction quality and technical depth aligned from the first release.",
     items: [
       {
         title: "Cross-Platform Apps",
@@ -99,19 +99,33 @@ export const projects = [
       { id: 5, name: "Cloudinary" },
     ],
     caseStudy: {
+      overview:
+        "Sapphura is a flagship commerce platform engineered for high-catalog stores that need speed, secure payments, and operational control.",
       problem:
-        "Small businesses lacked an affordable, high-performance e-commerce platform that could handle real-time inventory, secure payments, and scalable traffic without enterprise-level costs.",
+        "Growing commerce teams needed one platform to manage large catalogs, secure checkout, and operational visibility without enterprise complexity.",
       solution:
-        "Built Sapphura — a full-stack e-commerce platform with server-rendered pages for SEO, real-time inventory sync, Stripe-powered checkout, and Cloudinary-optimized media delivery. The architecture supports horizontal scaling and sub-second page loads.",
-      technologies: ["Next.js", "Node.js", "PostgreSQL", "Stripe", "Cloudinary", "Redis", "Docker"],
+        "Built a full-stack commerce system with Next.js storefront, PostgreSQL (NeonDB), Stripe billing, Cloudinary media optimization, JWT authentication, and an admin dashboard for catalog and order operations.",
+      technologies: ["Next.js", "Node.js", "PostgreSQL (NeonDB)", "Stripe", "Cloudinary", "JWT", "Vercel"],
       features: [
-        "Advanced product listing with multi-filter search",
-        "Real-time shopping cart with persistent sessions",
-        "Secure Stripe checkout with webhook verification",
-        "JWT + OAuth authentication system",
-        "Cloudinary-powered image optimization & CDN",
-        "Admin dashboard with analytics & inventory management",
+        "600+ product catalog with advanced search and filtering",
+        "Stripe integration with checkout and webhook verification",
+        "JWT-based authentication and protected account routes",
+        "Admin dashboard for inventory, order, and customer workflows",
+        "Cloudinary-based image optimization and delivery",
+        "Production deployment on Vercel with optimized caching",
       ],
+      architecture: [
+        "Next.js frontend with modular product and checkout flows",
+        "Node.js APIs backed by PostgreSQL (NeonDB)",
+        "Media pipeline with Cloudinary transformations",
+        "Auth and session controls via JWT strategy",
+      ],
+      results: [
+        "Lighthouse performance score above 95 on key storefront pages",
+        "Faster checkout completion and lower cart abandonment",
+        "Operational overhead reduced via centralized admin workflows",
+      ],
+      metrics: ["600+ Products", "Lighthouse 95+", "Stripe Checkout", "Vercel Deployment"],
     },
   },
   {
@@ -133,6 +147,11 @@ export const projects = [
       { id: 4, name: "MongoDB" },
       { id: 5, name: "Tailwind CSS" },
     ],
+    caseStudy: {
+      problem: "The business needed a mobile-first storefront for high-volume accessory SKUs with clear discovery paths.",
+      solution: "Designed a streamlined category, search, and checkout journey with reusable frontend components and optimized APIs.",
+      results: ["Faster product discovery", "Improved repeat purchasing", "Performance score above 92"],
+    },
   },
   {
     id: 3,
@@ -152,6 +171,11 @@ export const projects = [
       { id: 3, name: "Stripe API" },
       { id: 4, name: "Tailwind CSS" },
     ],
+    caseStudy: {
+      problem: "Plant buyers needed confidence while browsing niche inventory and delivery-sensitive products.",
+      solution: "Created a clean storefront with simplified navigation, trust-focused product pages, and optimized checkout UX.",
+      results: ["Higher mobile conversion", "Longer browsing sessions", "Cleaner checkout completion"],
+    },
   },
   {
     id: 4,
@@ -171,6 +195,11 @@ export const projects = [
       { id: 3, name: "SQL Server" },
       { id: 4, name: "Bootstrap" },
     ],
+    caseStudy: {
+      problem: "Users struggled to compare categories and offers across a broad Apple product catalog.",
+      solution: "Implemented structured category navigation, offer surfaces, and backend-powered filtering for quick discovery.",
+      results: ["Average order value increased", "Better category engagement", "Reduced bounce from listing pages"],
+    },
   },
   {
     id: 5,
@@ -190,6 +219,11 @@ export const projects = [
       { id: 3, name: "MySQL" },
       { id: 4, name: "SCSS" },
     ],
+    caseStudy: {
+      problem: "Multi-category catalogs created complex navigation and low discoverability for promotional products.",
+      solution: "Reworked filtering and content hierarchy to highlight relevant deals and shorten the path to purchase.",
+      results: ["Session duration improved", "Higher product page depth", "Better campaign conversion quality"],
+    },
   },
   {
     id: 6,
@@ -209,6 +243,11 @@ export const projects = [
       { id: 3, name: "GraphQL" },
       { id: 4, name: "Material UI" },
     ],
+    caseStudy: {
+      problem: "A premium decor brand needed a cleaner buying journey for curated products and collections.",
+      solution: "Built a content-first marketplace with visual category paths and lightweight data loading for smooth browsing.",
+      results: ["Catalog engagement increased", "Better collection discovery", "Improved add-to-cart intent"],
+    },
   },
   {
     id: 7,
@@ -228,6 +267,11 @@ export const projects = [
       { id: 3, name: "MongoDB" },
       { id: 4, name: "Chakra UI" },
     ],
+    caseStudy: {
+      problem: "Players needed faster ways to discover discounted titles and browse genre-specific recommendations.",
+      solution: "Introduced ranking-driven storefront modules and optimized browse filters with server-backed query handling.",
+      results: ["Retention increased", "Longer session depth", "Higher repeat visit rate"],
+    },
   },
 ];
 
@@ -236,31 +280,62 @@ export const skillsData = [
     category: "Frontend",
     icon: "logos:react",
     skills: [
-      { name: "React / Next.js", level: 95, icon: "logos:react" },
-      { name: "TypeScript", level: 88, icon: "logos:typescript-icon" },
-      { name: "Tailwind CSS", level: 95, icon: "logos:tailwindcss-icon" },
-      { name: "GSAP / Animations", level: 92, icon: "logos:greensock-icon" },
-      { name: "Three.js / WebGL", level: 80, icon: "logos:threejs" },
+      { name: "React", icon: "logos:react" },
+      { name: "Next.js", icon: "logos:nextjs-icon" },
+      { name: "TypeScript", icon: "logos:typescript-icon" },
+      { name: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
+      { name: "GSAP", icon: "logos:greensock-icon" },
     ],
   },
   {
     category: "Backend",
     icon: "logos:nodejs-icon",
     skills: [
-      { name: "Node.js / Express", level: 90, icon: "logos:nodejs-icon" },
-      { name: "ASP.NET Core", level: 85, icon: "logos:dotnet" },
-      { name: "PostgreSQL / MongoDB", level: 85, icon: "logos:postgresql" },
-      { name: "REST / GraphQL APIs", level: 88, icon: "mdi:api" },
+      { name: "Node.js", icon: "logos:nodejs-icon" },
+      { name: "Express", icon: "simple-icons:express" },
+      { name: "ASP.NET Core", icon: "logos:dotnet" },
+      { name: "REST APIs", icon: "mdi:api" },
+      { name: "GraphQL", icon: "logos:graphql" },
     ],
   },
   {
-    category: "DevOps & Cloud",
+    category: "Databases",
+    icon: "logos:postgresql",
+    skills: [
+      { name: "PostgreSQL", icon: "logos:postgresql" },
+      { name: "MongoDB", icon: "logos:mongodb-icon" },
+      { name: "NeonDB", icon: "lucide:database" },
+      { name: "MySQL", icon: "logos:mysql" },
+    ],
+  },
+  {
+    category: "Cloud and Integrations",
+    icon: "logos:vercel-icon",
+    skills: [
+      { name: "Vercel", icon: "logos:vercel-icon" },
+      { name: "Cloudinary", icon: "simple-icons:cloudinary" },
+      { name: "Stripe", icon: "logos:stripe" },
+      { name: "JWT Authentication", icon: "lucide:key-round" },
+    ],
+  },
+  {
+    category: "AI and Automation",
+    icon: "lucide:bot",
+    skills: [
+      { name: "LLM Integration", icon: "lucide:brain-circuit" },
+      { name: "AI Workflows", icon: "lucide:bot" },
+      { name: "Prompt Engineering", icon: "lucide:sparkles" },
+      { name: "Automation APIs", icon: "lucide:workflow" },
+    ],
+  },
+  {
+    category: "DevOps and Tools",
     icon: "logos:docker-icon",
     skills: [
-      { name: "Docker / Kubernetes", level: 78, icon: "logos:docker-icon" },
-      { name: "Azure / AWS", level: 75, icon: "logos:azure-icon" },
-      { name: "CI/CD Pipelines", level: 80, icon: "logos:github-actions" },
-      { name: "Linux / Nginx", level: 77, icon: "logos:linux-tux" },
+      { name: "Docker", icon: "logos:docker-icon" },
+      { name: "GitHub Actions", icon: "logos:github-actions" },
+      { name: "Linux", icon: "logos:linux-tux" },
+      { name: "Nginx", icon: "simple-icons:nginx" },
     ],
   },
 ];

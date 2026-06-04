@@ -12,9 +12,9 @@ gsap.registerPlugin(ScrollTrigger);
 const CARD_OFFSET = 48; // px per card
 
 const Services = () => {
-  const text = `I build secure, high-performance full-stack apps
-    with smooth UX to drive growth 
-    not headaches.`;
+  const text = `I design and engineer full-stack systems
+    that stay fast under pressure,
+    clear for users, and maintainable for teams.`;
 
   const serviceRefs = useRef([]);
   const isDesktopSticky = useMediaQuery({ minWidth: 1024 });
@@ -57,29 +57,29 @@ const Services = () => {
             <div
               key={index}
               ref={(el) => (serviceRefs.current[index] = el)}
-              className={`${isDesktopSticky ? "sticky" : "relative"} px-10 pt-6 pb-12 text-black dark:text-white bg-white dark:bg-black border-t-2 border-black/20 dark:border-white/30`}
+              className={`${isDesktopSticky ? "sticky" : "relative"} px-5 sm:px-8 lg:px-10 pt-6 pb-12 text-black dark:text-white bg-white dark:bg-black border-t-2 border-black/20 dark:border-white/30`}
               style={{ top: topOffset }}
             >
               <div className="flex items-start justify-between gap-4 font-light">
                 <div className="flex flex-col gap-6 w-full">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-3xl lg:text-4xl">{service.title}</h2>
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl">{service.title}</h2>
                     <span className="text-[10px] tracking-[0.3em] uppercase text-SageGray dark:text-white/30 font-light">
                       0{index + 1}
                     </span>
                   </div>
-                  <p className="text-xl leading-relaxed tracking-widest lg:text-2xl text-black/60 dark:text-white/60 text-pretty max-w-3xl">
+                  <p className="text-base sm:text-lg lg:text-2xl leading-relaxed tracking-[0.03em] sm:tracking-[0.08em] lg:tracking-widest text-black/60 dark:text-white/60 text-pretty max-w-3xl">
                     {service.description}
                   </p>
-                  <div className="flex flex-col gap-2 text-2xl sm:gap-4 lg:text-3xl text-black/80 dark:text-white/80">
+                  <div className="flex flex-col gap-2 text-lg sm:text-2xl sm:gap-4 lg:text-3xl text-black/80 dark:text-white/80">
                     {service.items.map((item, itemIndex) => (
                       <div key={`item-${index}-${itemIndex}`}>
-                        <h3 className="flex items-baseline">
-                          <span className="mr-12 text-lg text-black/30 dark:text-white/30">
+                        <h3 className="flex flex-wrap items-baseline gap-y-1">
+                          <span className="mr-4 sm:mr-10 text-sm sm:text-lg text-black/30 dark:text-white/30">
                             0{itemIndex + 1}
                           </span>
-                          <span>{item.title}</span>
-                          <span className="ml-3 text-sm font-light text-black/40 dark:text-white/40">
+                          <span className="text-base sm:text-2xl lg:text-3xl">{item.title}</span>
+                          <span className="w-full sm:w-auto sm:ml-3 text-xs sm:text-sm font-light text-black/40 dark:text-white/40">
                             {item.description}
                           </span>
                         </h3>

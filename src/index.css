@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Syne:wght@500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -9,7 +9,10 @@
   --color-cyanAccent: #6f95a0;
   --font-amiamie: "Manrope", sans-serif;
   --font-amiamie-round: "Manrope", sans-serif;
-  --font-display: "Bebas Neue", sans-serif;
+  --font-display: "Syne", sans-serif;
+  --color-film-black: #0f100d;
+  --color-film-ivory: #efebe0;
+  --color-film-amber: #cfab70;
 
   --animate-marquee: marquee 40s infinite linear;
   @keyframes marquee {
@@ -34,10 +37,14 @@
 }
 
 body {
-  background: #e7e4db;
+  background:
+    radial-gradient(circle at 9% 11%, rgba(207, 171, 112, 0.16), transparent 33%),
+    radial-gradient(circle at 86% 81%, rgba(111, 149, 160, 0.1), transparent 35%),
+    #e7e4db;
   color: black;
   /* overflow-x hidden on html instead of body — body overflow:hidden breaks Lenis on some browsers */
   font-family: var(--font-amiamie);
+  overflow-x: clip;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -47,7 +54,10 @@ html {
 
 .dark body,
 html.dark body {
-  background: #0d0d0b;
+  background:
+    radial-gradient(circle at 14% 16%, rgba(207, 171, 112, 0.1), transparent 38%),
+    radial-gradient(circle at 82% 78%, rgba(111, 149, 160, 0.08), transparent 34%),
+    #0d0d0b;
   color: #ece8dd;
 }
 
@@ -72,7 +82,7 @@ html.dark body {
 }
 
 @utility banner-text-responsive {
-  @apply text-[68px] sm:text-[118px] md:text-[126px] lg:text-[152px] leading-9 sm:leading-16 lg:leading-20;
+  @apply text-[54px] sm:text-[118px] md:text-[126px] lg:text-[152px] leading-8 sm:leading-16 lg:leading-20;
 }
 
 @utility value-text-responsive {
@@ -84,7 +94,7 @@ html.dark body {
 }
 
 @utility contact-text-responsive {
-  @apply text-[42px] sm:text-[52px] md:text-[62px] lg:text-[100px];
+  @apply text-[34px] sm:text-[52px] md:text-[62px] lg:text-[100px];
 }
 
 @utility cinematic-title {
@@ -138,6 +148,18 @@ html.dark body {
   pointer-events: none;
   z-index: 0;
   background: linear-gradient(160deg, rgba(18, 18, 16, 0.08) 0%, rgba(198, 151, 75, 0.07) 52%, rgba(111, 149, 160, 0.07) 100%);
+}
+
+.cinematic-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at 50% 50%, black 45%, transparent 100%);
 }
 
 .cinematic-grain::after {

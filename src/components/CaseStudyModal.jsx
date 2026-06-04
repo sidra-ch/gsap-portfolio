@@ -72,6 +72,19 @@ const CaseStudyModal = ({ project, isOpen, onClose }) => {
         </h2>
 
         <div className="flex flex-col gap-8">
+          {caseStudy.overview && (
+            <div>
+              <h3 className="mb-3 text-sm font-light tracking-[0.3rem] uppercase text-SageGray dark:text-white/50">
+                Overview
+              </h3>
+              <p className="text-lg font-light leading-relaxed text-DarkLava/80 dark:text-white/70">
+                {caseStudy.overview}
+              </p>
+            </div>
+          )}
+
+          {caseStudy.overview && <div className="w-full h-px bg-black/10 dark:bg-white/10" />}
+
           <div>
             <h3 className="mb-3 text-sm font-light tracking-[0.3rem] uppercase text-SageGray dark:text-white/50">
               The Problem
@@ -94,12 +107,96 @@ const CaseStudyModal = ({ project, isOpen, onClose }) => {
 
           <div className="w-full h-px bg-black/10 dark:bg-white/10" />
 
+          {Array.isArray(caseStudy.features) && caseStudy.features.length > 0 && (
+            <div>
+              <h3 className="mb-3 text-sm font-light tracking-[0.3rem] uppercase text-SageGray dark:text-white/50">
+                Key Features
+              </h3>
+              <ul className="flex flex-col gap-3">
+                {caseStudy.features.map((feature, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-3 text-base font-light text-DarkLava/80 dark:text-white/70"
+                  >
+                    <Icon
+                      icon="lucide:check-circle-2"
+                      className="flex-shrink-0 w-5 h-5 mt-0.5 text-gold"
+                    />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {Array.isArray(caseStudy.architecture) && caseStudy.architecture.length > 0 && (
+            <>
+              <div className="w-full h-px bg-black/10 dark:bg-white/10" />
+              <div>
+                <h3 className="mb-3 text-sm font-light tracking-[0.3rem] uppercase text-SageGray dark:text-white/50">
+                  Technical Architecture
+                </h3>
+                <ul className="flex flex-col gap-3">
+                  {caseStudy.architecture.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-base font-light text-DarkLava/80 dark:text-white/70">
+                      <Icon icon="lucide:network" className="flex-shrink-0 w-5 h-5 mt-0.5 text-gold" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          )}
+
+          {caseStudy.results && (
+            <>
+              <div className="w-full h-px bg-black/10 dark:bg-white/10" />
+              <div>
+                <h3 className="mb-3 text-sm font-light tracking-[0.3rem] uppercase text-SageGray dark:text-white/50">
+                  Results
+                </h3>
+                {Array.isArray(caseStudy.results) ? (
+                  <ul className="flex flex-col gap-3">
+                    {caseStudy.results.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-base font-light text-DarkLava/80 dark:text-white/70">
+                        <Icon icon="lucide:trending-up" className="flex-shrink-0 w-5 h-5 mt-0.5 text-gold" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-lg font-light leading-relaxed text-DarkLava/80 dark:text-white/70">{caseStudy.results}</p>
+                )}
+              </div>
+            </>
+          )}
+
+          {Array.isArray(caseStudy.metrics) && caseStudy.metrics.length > 0 && (
+            <>
+              <div className="w-full h-px bg-black/10 dark:bg-white/10" />
+              <div>
+                <h3 className="mb-3 text-sm font-light tracking-[0.3rem] uppercase text-SageGray dark:text-white/50">
+                  Project Metrics
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {caseStudy.metrics.map((metric) => (
+                    <span key={metric} className="px-4 py-1.5 text-xs font-light tracking-widest uppercase rounded-full bg-gold/10 text-gold border border-gold/20">
+                      {metric}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
+          <div className="w-full h-px bg-black/10 dark:bg-white/10" />
+
           <div>
             <h3 className="mb-3 text-sm font-light tracking-[0.3rem] uppercase text-SageGray dark:text-white/50">
               Technologies
             </h3>
             <div className="flex flex-wrap gap-2">
-              {caseStudy.technologies.map((tech) => (
+              {caseStudy.technologies?.map((tech) => (
                 <span
                   key={tech}
                   className="px-4 py-1.5 text-xs font-light tracking-widest uppercase rounded-full bg-gold/10 text-gold border border-gold/20"
@@ -110,30 +207,8 @@ const CaseStudyModal = ({ project, isOpen, onClose }) => {
             </div>
           </div>
 
-          <div className="w-full h-px bg-black/10 dark:bg-white/10" />
-
-          <div>
-            <h3 className="mb-3 text-sm font-light tracking-[0.3rem] uppercase text-SageGray dark:text-white/50">
-              Key Features
-            </h3>
-            <ul className="flex flex-col gap-3">
-              {caseStudy.features.map((feature, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-3 text-base font-light text-DarkLava/80 dark:text-white/70"
-                >
-                  <Icon
-                    icon="lucide:check-circle-2"
-                    className="flex-shrink-0 w-5 h-5 mt-0.5 text-gold"
-                  />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </div>
-
           <div className="flex flex-wrap gap-3 pt-4">
-            {project.href && (
+            {project.href && project.href !== "#" && (
               <a
                 href={project.href}
                 target="_blank"
@@ -144,7 +219,7 @@ const CaseStudyModal = ({ project, isOpen, onClose }) => {
                 Live Demo
               </a>
             )}
-            {project.github && (
+            {project.github && project.github !== "#" && (
               <a
                 href={project.github}
                 target="_blank"

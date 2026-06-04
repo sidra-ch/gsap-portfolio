@@ -15,7 +15,7 @@ const InputField = ({ label, name, type = "text", value, onChange, required }) =
   <div className="flex flex-col gap-1.5">
     <label
       htmlFor={name}
-      className="text-[10px] tracking-[0.3em] uppercase font-medium text-black/50 dark:text-white/40"
+      className="text-[10px] tracking-[0.2em] sm:tracking-[0.3em] uppercase font-medium text-black/50 dark:text-white/40"
     >
       {label} {required && <span className="text-gold">*</span>}
     </label>
@@ -33,8 +33,9 @@ const InputField = ({ label, name, type = "text", value, onChange, required }) =
 );
 
 const Contact = () => {
-  const text = `Got a question or a project idea?
-    I'd love to hear from you.`;
+  const text = `If you are building a product with real goals,
+    I can help shape, ship,
+    and scale it with you.`;
 
   const marqueeItems = [
     "Available for work",
@@ -98,14 +99,14 @@ const Contact = () => {
     >
       <div>
         <AnimatedHeaderSection
-          subTitle={"You Dream It, I Code It"}
+          subTitle={"From idea to resilient product"}
           title={"Contact"}
           text={text}
           textColor={"text-black dark:text-white"}
           withScrollTrigger={true}
         />
 
-        <div className="px-10 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="px-5 sm:px-8 lg:px-10 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left — info */}
           <div className="flex flex-col gap-10 font-light text-black dark:text-white uppercase">
             <div className="social-link">
@@ -113,7 +114,7 @@ const Contact = () => {
               <div className="w-full h-px my-2 bg-black/30 dark:bg-white/30" />
               <a
                 href="mailto:ms.sidrachaudhary@gmail.com"
-                className="text-base tracking-wider lowercase text-gold hover:text-gold/70 transition-colors duration-200"
+                className="text-sm sm:text-base tracking-[0.05em] sm:tracking-wider lowercase text-gold hover:text-gold/70 transition-colors duration-200 break-all"
               >
                 ms.sidrachaudhary@gmail.com
               </a>
@@ -129,7 +130,7 @@ const Contact = () => {
                     href={social.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs leading-loose tracking-widest uppercase text-black/70 dark:text-white/70 hover:text-gold transition-colors duration-200"
+                    className="text-xs leading-loose tracking-[0.12em] sm:tracking-widest uppercase text-black/70 dark:text-white/70 hover:text-gold transition-colors duration-200"
                   >
                     {"{ "}
                     {social.name}
@@ -166,7 +167,7 @@ const Contact = () => {
             <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="message"
-                className="text-[10px] tracking-[0.3em] uppercase font-medium text-black/50 dark:text-white/40"
+                className="text-[10px] tracking-[0.2em] sm:tracking-[0.3em] uppercase font-medium text-black/50 dark:text-white/40"
               >
                 Message <span className="text-gold">*</span>
               </label>
@@ -185,7 +186,7 @@ const Contact = () => {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="self-start mt-2 px-8 py-3 text-xs font-black tracking-[0.25em] uppercase border border-black/40 dark:border-white/20 text-black dark:text-white hover:bg-gold hover:border-gold hover:text-black transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="self-start mt-2 w-full sm:w-auto px-8 py-3 text-xs font-black tracking-[0.18em] sm:tracking-[0.25em] uppercase border border-black/40 dark:border-white/20 text-black dark:text-white hover:bg-gold hover:border-gold hover:text-black transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {status === "sending" ? "Sending..." : "Send Message"}
             </button>
