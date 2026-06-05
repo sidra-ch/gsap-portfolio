@@ -179,7 +179,7 @@ const Hero = () => {
           className="absolute inset-0 z-10 pointer-events-none"
           style={{ opacity: 0 }}
         >
-          {webglSupported && isHeroVisible && !prefersReducedMotion && (
+          {webglSupported && isHeroVisible && (
             <Canvas shadows dpr={isMobile ? [1, 1.4] : [1, 2]} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} camera={{ position: [0, 0.7, 7.2], fov: 36, near: 0.1, far: 200 }}>
               <Suspense fallback={null}>
                 <Stars radius={120} depth={80} count={isMobile ? 760 : 1400} factor={3} saturation={0} fade speed={0.12} />
@@ -190,7 +190,7 @@ const Hero = () => {
                 <pointLight position={[-5, 5, 3]} intensity={10} color="#cfa355" />
                 <pointLight position={[5, -3, 4]} intensity={5.5} color="#e8c97a" />
                 <pointLight position={[0, 6, -6]} intensity={3.5} color="#ffffff" />
-                <Float speed={0.45} rotationIntensity={0.05} floatIntensity={1.2}>
+                <Float speed={prefersReducedMotion ? 0 : 0.45} rotationIntensity={prefersReducedMotion ? 0 : 0.05} floatIntensity={prefersReducedMotion ? 0 : 1.2}>
                   <Planet
                     position={isMobile ? [-0.25, -0.32, 0] : [-0.72, -0.08, 0]}
                     scale={isMobile ? 1.85 : 2.4}
