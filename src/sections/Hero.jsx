@@ -156,7 +156,7 @@ const Hero = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="home" className="cinematic-surface cinematic-grain relative w-full min-h-screen overflow-hidden" style={{ background: isDark ? "#0d0d0b" : "#e7e4db" }}>
+    <section ref={sectionRef} id="home" className="cinematic-surface cinematic-grain relative w-full min-h-[680px] lg:min-h-[620px] overflow-hidden" style={{ background: isDark ? "#0d0d0b" : "#e7e4db" }}>
       <AIBackground isDark={isDark} reducedMotion={prefersReducedMotion} />
       <div className="absolute pointer-events-none z-0" style={{ top: "5%", right: "0%", width: 750, height: 750, background: isDark ? "radial-gradient(ellipse, rgba(198,151,75,0.16) 0%, transparent 65%)" : "radial-gradient(ellipse, rgba(198,151,75,0.2) 0%, transparent 65%)", filter: "blur(55px)" }} />
       <div className="absolute pointer-events-none z-0" style={{ bottom: "-12%", left: "-10%", width: 620, height: 620, background: isDark ? "radial-gradient(circle, rgba(111,149,160,0.14) 0%, transparent 62%)" : "radial-gradient(circle, rgba(111,149,160,0.2) 0%, transparent 62%)", filter: "blur(40px)" }} />
@@ -173,7 +173,7 @@ const Hero = () => {
         <div className="w-px h-10 mt-1" style={{ background: "linear-gradient(to bottom, rgba(207,163,85,0.3), transparent)" }} />
       </div>
 
-      <div className="relative min-h-screen">
+      <div className="relative min-h-[680px] lg:min-h-[620px]">
         <div
           ref={planetRef}
           className="absolute inset-0 z-10 pointer-events-none"
@@ -192,8 +192,8 @@ const Hero = () => {
                 <pointLight position={[0, 6, -6]} intensity={3.5} color="#ffffff" />
                 <Float speed={prefersReducedMotion ? 0 : 0.45} rotationIntensity={prefersReducedMotion ? 0 : 0.05} floatIntensity={prefersReducedMotion ? 0 : 1.2}>
                   <Planet
-                    position={isMobile ? [-0.25, -0.32, 0] : [-0.72, -0.08, 0]}
-                    scale={isMobile ? 1.85 : 2.4}
+                    position={isMobile ? [-0.25, -0.32, 0] : [0.72, -0.08, 0]}
+                    scale={isMobile ? 1.8 : 2.15}
                   />
                 </Float>
                 <Environment resolution={256} blur={0.8}>
@@ -208,20 +208,17 @@ const Hero = () => {
           )}
         </div>
 
-        <div className="relative z-20 flex min-h-screen items-center px-5 pt-24 pb-16 sm:px-8 lg:px-16 lg:pt-0 lg:pb-0 xl:px-24">
-          <div className="flex w-full justify-start lg:justify-end">
-            <div className="w-full max-w-[560px] lg:mr-[10vw] xl:mr-[12vw]">
+        <div className="relative z-20 flex min-h-[680px] items-center px-5 pt-24 pb-16 text-left sm:px-8 lg:min-h-[620px] lg:items-start lg:px-16 lg:pt-28 lg:pb-8 xl:px-24">
+          <div className="grid w-full lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,1.05fr)]">
+            <div className="w-full max-w-[620px]">
               <p ref={taglineRef} className={`cinematic-caption mb-8 font-medium ${isDark ? "text-white/70" : "text-black/70"}`}>
-                Engineering digital products with measurable business outcomes
+                Full-stack engineering for ambitious digital products
               </p>
-              <div ref={nameRef} className="mb-5">
-                <span className={`cinematic-title block leading-[0.87] ${isDark ? "text-white" : "text-black"}`} style={{ fontSize: "clamp(68px, 10.2vw, 126px)", textShadow: isDark ? "0 2px 18px rgba(0,0,0,0.42)" : "0 1px 10px rgba(255,255,255,0.25)" }}>CH. SIDRA</span>
-                <span className={`cinematic-title block mt-1 leading-[0.95] ${isDark ? "text-white/88" : "text-black/82"}`} style={{ fontSize: "clamp(26px, 4.2vw, 54px)", letterSpacing: "0.14em", textShadow: isDark ? "0 2px 14px rgba(0,0,0,0.36)" : "0 1px 8px rgba(255,255,255,0.2)" }}>CHAUDHARY</span>
-              </div>
+            
               <div ref={roleRef} className="flex flex-wrap items-center gap-2.5 mb-4">
-                <span className={`text-[10px] sm:text-xs font-semibold tracking-[0.18em] sm:tracking-[0.26em] uppercase ${isDark ? "text-white" : "text-black/90"}`}>Product Systems</span>
+                <span className={`text-[10px] sm:text-xs font-semibold tracking-[0.18em] sm:tracking-[0.26em] uppercase ${isDark ? "text-white" : "text-black/90"}`}>Product Engineering</span>
                 <span className="text-gold text-base opacity-80">|</span>
-                <span className={`text-[10px] sm:text-xs font-light tracking-[0.18em] sm:tracking-[0.26em] uppercase ${isDark ? "text-white/72" : "text-black/68"}`}>AI Operations</span>
+                <span className={`text-[10px] sm:text-xs font-light tracking-[0.18em] sm:tracking-[0.26em] uppercase ${isDark ? "text-white/72" : "text-black/68"}`}>AI Systems</span>
               </div>
               <div ref={aiRef} className="flex flex-wrap items-center gap-2.5 mb-8">
                 <span className="text-[9px] tracking-[0.28em] uppercase px-2 py-[3px] font-medium rounded-sm" style={{ color: "#cfa355", border: "1px solid rgba(207,163,85,0.25)", background: "rgba(207,163,85,0.06)" }}>AI</span>
@@ -229,18 +226,18 @@ const Hero = () => {
                 <span className="text-gold animate-pulse font-thin text-lg leading-none">|</span>
               </div>
               <p ref={descRef} className={`text-sm sm:text-[15px] leading-relaxed max-w-[480px] mb-10 font-light ${isDark ? "text-white/78" : "text-black/80"}`}>
-                I design and ship full-stack platforms where speed, clarity, and automation work together, from conversion-first interfaces to reliable backend operations.
+                I build high-performance web products and AI-powered workflows that turn complex operations into clear, reliable experiences.
               </p>
               <div ref={ctaRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-10 lg:mb-0 w-full sm:w-auto">
-                <a href="#work" className={`flex items-center justify-between gap-3 pl-5 pr-2 py-2 rounded-full text-sm font-medium tracking-[0.06em] sm:tracking-[0.09em] transition-all duration-300 w-full sm:w-auto ${isDark ? "text-black" : "text-black"}`} style={{ border: "1.5px solid rgba(198,151,75,0.6)", background: "linear-gradient(120deg, rgba(255,229,179,0.96), rgba(198,151,75,0.95))" }}
+                <a href="#work" className={`relative z-30 flex shrink-0 items-center justify-between gap-3 pl-5 pr-2 py-2 rounded-full text-sm font-medium tracking-[0.06em] sm:tracking-[0.09em] transition-all duration-300 w-full sm:w-auto ${isDark ? "text-black" : "text-black"}`} style={{ border: "1.5px solid rgba(198,151,75,0.6)", background: "linear-gradient(120deg, rgba(255,229,179,0.96), rgba(198,151,75,0.95))" }}
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(207,163,85,0.5)"; e.currentTarget.style.boxShadow = "0 0 20px rgba(207,163,85,0.12)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(198,151,75,0.6)"; e.currentTarget.style.boxShadow = "none"; }}>
-                  <span>Explore Selected Work</span>
+                  <span>View Selected Work</span>
                   <span className="w-9 h-9 rounded-full flex items-center justify-center bg-black/90">
                     <svg className="w-4 h-4 text-[#f2e6ca]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                   </span>
                 </a>
-                <a href="/sidra-cv.html" target="_blank" rel="noreferrer" className={`flex items-center gap-2 text-sm font-light tracking-[0.07em] transition-colors duration-300 ${isDark ? "text-white/72 hover:text-white" : "text-black/72 hover:text-black"}`}>
+                <a href="/sidra-cv.html" target="_blank" rel="noreferrer" className={`relative z-30 flex items-center gap-2 text-sm font-light tracking-[0.07em] transition-colors duration-300 ${isDark ? "text-white/72 hover:text-white" : "text-black/72 hover:text-black"}`}>
                   <span>Professional Profile</span>
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
                 </a>
@@ -250,14 +247,10 @@ const Hero = () => {
                   Systems Built Since 2023
                 </div>
                 <div className={`px-3 py-2 rounded-md border text-[10px] tracking-[0.14em] sm:tracking-[0.18em] uppercase ${isDark ? "border-white/12 text-white/60" : "border-black/12 text-black/55"}`}>
-                  20+ Production Projects
+                  10+ Production Projects
                 </div>
-                <div className={`px-3 py-2 rounded-md border text-[10px] tracking-[0.14em] sm:tracking-[0.18em] uppercase ${isDark ? "border-white/12 text-white/60" : "border-black/12 text-black/55"}`}>
-                  95+ Lighthouse Benchmarks
-                </div>
-                <div className={`px-3 py-2 rounded-md border text-[10px] tracking-[0.14em] sm:tracking-[0.18em] uppercase ${isDark ? "border-white/12 text-white/60" : "border-black/12 text-black/55"}`}>
-                  Async Team Ready
-                </div>
+               
+               
               </div>
               <div className="flex lg:hidden items-center gap-6">
                 {SOCIALS.map(({ icon, href, label }) => (

@@ -5,7 +5,7 @@ import gsap from "gsap";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
-// ─── Floating indigo particles ────────────────────────────────────────────
+// ─── Floating accent particles ────────────────────────────────────────────
 const FloatingParticles = () => {
   const ref = useRef();
   const { positions, count } = useMemo(() => {
@@ -33,12 +33,12 @@ const FloatingParticles = () => {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial size={0.028} color="#818cf8" transparent opacity={0.55} sizeAttenuation />
+      <pointsMaterial size={0.028} color="#e1b866" transparent opacity={0.55} sizeAttenuation />
     </points>
   );
 };
 
-// ─── Glowing indigo base ring ─────────────────────────────────────────────
+// ─── Glowing base ring ───────────────────────────────────────────────────
 const GlowRing = () => {
   const ref = useRef();
   useFrame((state) => {
@@ -50,8 +50,8 @@ const GlowRing = () => {
     <mesh ref={ref} rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.6, 0]}>
       <torusGeometry args={[1.25, 0.04, 16, 120]} />
       <meshStandardMaterial
-        color="#6366f1"
-        emissive="#7c3aed"
+        color="#c6974b"
+        emissive="#e1b866"
         emissiveIntensity={0.6}
         metalness={1}
         roughness={0.08}
@@ -74,8 +74,8 @@ const GlowHalo = () => {
     <mesh ref={ref} rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.6, 0]}>
       <torusGeometry args={[1.25, 0.35, 16, 120]} />
       <meshStandardMaterial
-        color="#7c3aed"
-        emissive="#818cf8"
+        color="#c6974b"
+        emissive="#e1b866"
         emissiveIntensity={1}
         transparent
         opacity={0.07}
@@ -98,8 +98,8 @@ const AtmosphereShell = () => {
     <mesh ref={ref} scale={1.13}>
       <sphereGeometry args={[1.02, 64, 64]} />
       <meshStandardMaterial
-        color="#8ab6ff"
-        emissive="#7c3aed"
+        color="#d8c49a"
+        emissive="#c6974b"
         emissiveIntensity={0.45}
         transparent
         opacity={0.12}
@@ -113,7 +113,7 @@ const AtmosphereShell = () => {
 const GroundShadow = () => (
   <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.72, 0]} scale={1.2}>
     <circleGeometry args={[1.5, 64]} />
-    <meshBasicMaterial color="#201722" transparent opacity={0.22} />
+    <meshBasicMaterial color="#181713" transparent opacity={0.22} />
   </mesh>
 );
 
@@ -228,7 +228,7 @@ export const Planet = React.memo(function Planet(props) {
                 reflectivity={1}
                 envMapIntensity={2.4}
                 sheen={0.25}
-                sheenColor="#cfd8ff"
+                sheenColor="#e1b866"
               />
             </mesh>
           )}
@@ -243,8 +243,8 @@ export const Planet = React.memo(function Planet(props) {
         >
           <torusGeometry args={[1.6, 0.12, 16, 100]} />
           <meshStandardMaterial
-            color="#6366f1"
-            emissive="#7c3aed"
+            color="#c6974b"
+            emissive="#e1b866"
             emissiveIntensity={0.65}
             metalness={1}
             roughness={0.05}

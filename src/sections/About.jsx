@@ -7,9 +7,9 @@ import { Icon } from "@iconify/react";
 
 const stats = [
   { value: "3+", label: "Years Experience", icon: "lucide:calendar" },
-  { value: "20+", label: "Projects Delivered", icon: "lucide:layers" },
-  { value: "95+", label: "Lighthouse Score", icon: "lucide:gauge" },
-  { value: "600+", label: "Catalog Scale", icon: "lucide:star" },
+  { value: "Full-Stack", label: "Primary Focus", icon: "lucide:layers" },
+  { value: "AI + APIs", label: "Automation Focus", icon: "lucide:bot" },
+  { value: "Product-First", label: "Delivery Approach", icon: "lucide:rocket" },
 ];
 
 const highlights = [
